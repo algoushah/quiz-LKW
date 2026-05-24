@@ -531,7 +531,7 @@
   .back-row span { font-size: 13px; }
 </style>
 
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#f5a623">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -539,7 +539,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('SW registered'))
         .catch(err => console.log('SW error:', err));
     });
@@ -733,7 +733,7 @@ function buildZifferGrid() {
     const btn = document.createElement('button');
     btn.className = 'ziffer-btn selected';
     btn.id = 'z_' + z;
-    btn.innerHTML = \`<span>\${z}</span><br><small style="font-size:10px;font-weight:400">\${ZIFFER_META[z]}</small><br><small style="font-size:10px;opacity:.6">\${count}F</small>\`;
+    btn.innerHTML = `<span>${z}</span><br><small style="font-size:10px;font-weight:400">${ZIFFER_META[z]}</small><br><small style="font-size:10px;opacity:.6">${count}F</small>`;
     btn.onclick = () => toggleZiffer(z);
     grid.appendChild(btn);
   });
@@ -768,7 +768,7 @@ function selectBus() {
 function updateSelInfo() {
   const avail = QUESTIONS.filter(q => selectedZiffers.has(q.ziffer)).length;
   const actual = questionCount === 0 ? avail : Math.min(questionCount, avail);
-  document.getElementById('selInfo').innerHTML = \`<span>\${avail}</span> verfügbare Fragen → <span>\${actual}</span> werden gespielt\`;
+  document.getElementById('selInfo').innerHTML = `<span>${avail}</span> verfügbare Fragen → <span>${actual}</span> werden gespielt`;
   document.getElementById('startBtn').disabled = avail === 0;
 }
 function setCount(n) {
@@ -819,7 +819,7 @@ function renderQuestion() {
 
   // Meta
   const meta = document.getElementById('qMeta');
-  meta.innerHTML = \`<span class="q-num">Frage \${q.id}</span><span class="q-tag">\${q.ziffer} · \${ZIFFER_META[q.ziffer] || ''}</span>\`;
+  meta.innerHTML = `<span class="q-num">Frage ${q.id}</span><span class="q-tag">${q.ziffer} · ${ZIFFER_META[q.ziffer] || ''}</span>`;
 
   document.getElementById('qText').textContent = q.question;
 
@@ -832,7 +832,7 @@ function renderQuestion() {
   shuffledAnswers.forEach((a, i) => {
     const btn = document.createElement('button');
     btn.className = 'answer-btn';
-    btn.innerHTML = \`<span class="answer-letter">\${letters[i]}</span><span>\${a.text}</span>\`;
+    btn.innerHTML = `<span class="answer-letter">${letters[i]}</span><span>${a.text}</span>`;
     btn.dataset.correct = a.correct;
     btn.dataset.idx = i;
 
@@ -964,13 +964,13 @@ function showReview() {
     const isOk = ans && ans.correct;
     const item = document.createElement('div');
     item.className = 'review-item ' + (isOk ? 'ok' : 'fail');
-    let html = \`<div class="review-q">\${i+1}. \${q.question}</div><div class="review-answers">\`;
+    let html = `<div class="review-q">${i+1}. ${q.question}</div><div class="review-answers">`;
     q.answers.forEach(a => {
       let cls = 'plain';
       if (a.correct) cls = 'correct';
       else if (ans && ans.selectedText === a.text) cls = 'wrong';
       const icon = cls === 'correct' ? '✓ ' : cls === 'wrong' ? '✗ ' : '· ';
-      html += \`<div class="review-ans \${cls}">\${icon}\${a.text}</div>\`;
+      html += `<div class="review-ans ${cls}">${icon}${a.text}</div>`;
     });
     html += '</div>';
     item.innerHTML = html;
