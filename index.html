@@ -529,6 +529,92 @@
   }
   .back-row:hover { color: var(--accent); }
   .back-row span { font-size: 13px; }
+
+  /* ===== PASSWORD SCREEN ===== */
+  .lock-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .lock-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lock-icon {
+    font-size: 52px;
+    margin-bottom: 16px;
+  }
+  .lock-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .lock-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .lock-input {
+    width: 100%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 18px;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 14px;
+    font-family: 'Rajdhani', sans-serif;
+  }
+  .lock-input:focus { border-color: var(--accent); }
+  .lock-input.error { border-color: var(--red); animation: shake 0.4s; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+  .lock-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .lock-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .lock-error {
+    color: var(--red);
+    font-size: 13px;
+    margin-top: 12px;
+    height: 18px;
+    transition: opacity 0.2s;
+  }
+
 </style>
 
 <link rel="manifest" href="./manifest.json">
@@ -547,6 +633,26 @@
 </script>
 </head>
 <body>
+
+
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">LKW & BUS QUIZ</div>
+    <div class="lock-sub">Geben Sie das Passwort ein, um fortzufahren</div>
+    <input
+      class="lock-input"
+      id="lockInput"
+      type="password"
+      placeholder="••••••"
+      maxlength="20"
+      onkeydown="if(event.key==='Enter') checkPassword()"
+      autofocus
+    >
+    <button class="lock-btn" onclick="checkPassword()">EINLOGGEN 🔓</button>
+    <div class="lock-error" id="lockError"></div>
+  </div>
+</div>
 
 <header>
   <div class="header-inner">
@@ -1014,6 +1120,35 @@ window.addEventListener('scroll', () => {
 
 // Init
 buildZifferGrid();
+
+// ===== PASSWORD =====
+const PASSWORD = '00009';
+
+function checkPassword() {
+  const input = document.getElementById('lockInput');
+  const val = input.value.trim();
+  if (val === PASSWORD) {
+    const screen = document.getElementById('lockScreen');
+    screen.style.opacity = '0';
+    screen.style.transition = 'opacity 0.4s';
+    setTimeout(() => screen.style.display = 'none', 400);
+    // Remember for session
+    sessionStorage.setItem('auth', '1');
+  } else {
+    input.classList.add('error');
+    document.getElementById('lockError').textContent = '❌ Falsches Passwort. Bitte erneut versuchen.';
+    setTimeout(() => {
+      input.classList.remove('error');
+      input.value = '';
+    }, 600);
+  }
+}
+
+// Check if already authenticated in this session
+if (sessionStorage.getItem('auth') === '1') {
+  document.getElementById('lockScreen').style.display = 'none';
+}
+
 </script>
 </body>
 </html>
