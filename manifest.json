@@ -1,0 +1,25 @@
+{
+  "name": "LKW & Bus Fragenkatalog",
+  "short_name": "LKW Quiz",
+  "description": "Prüfungsvorbereitung Bus & LKW Österreich – 298 Fragen",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#f5a623",
+  "orientation": "portrait-primary",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "https://ik.imagekit.io/imgayoub/LOGO/ayoub.pw%20logo%20many%20size/no%20background/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://ik.imagekit.io/imgayoub/LOGO/ayoub.pw%20logo%20many%20size/no%20background/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

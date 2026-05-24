@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKW & Bus Fragenkatalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0e14;
+    --surface: #111520;
+    --card: #161c2c;
+    --border: #1e2a42;
+    --accent: #f5a623;
+    --accent2: #e8891e;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, #0d1117 0%, #1a1f35 50%, #0d1117 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(245,166,35,0.15);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .logo-text { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+  .logo-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .header-stats {
+    display: flex; gap: 20px;
+  }
+  .stat-item { text-align: center; }
+  .stat-val { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .main { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ===== HOME SCREEN ===== */
+  .home-hero {
+    text-align: center;
+    padding: 40px 20px 30px;
+  }
+  .hero-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(28px, 6vw, 48px);
+    font-weight: 700;
+    color: var(--accent);
+    text-shadow: 0 0 40px rgba(245,166,35,0.3);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero-sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .mode-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .mode-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,0.15); }
+  .mode-card.selected { border-color: var(--accent); background: rgba(245,166,35,0.08); }
+  .mode-emoji { font-size: 32px; margin-bottom: 8px; }
+  .mode-name { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); }
+  .mode-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Category filter */
+  .filter-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .filter-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ziffer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .ziffer-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 14px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .ziffer-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .ziffer-btn.selected { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+  .select-controls { display: flex; gap: 8px; margin-bottom: 12px; }
+  .btn-sm {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+  .selected-info { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .selected-info span { color: var(--accent); font-weight: 600; }
+
+  /* Count selector */
+  .count-row {
+    display: flex; align-items: center; gap: 12px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .count-label { font-size: 13px; color: var(--muted); }
+  .count-options { display: flex; gap: 6px; }
+  .count-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+  }
+  .count-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .count-btn.selected { background: var(--accent); border-color: var(--accent); color: #000; }
+
+  /* Start button */
+  .start-btn {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.3);
+  }
+  .start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,0.5); }
+  .start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ===== QUIZ SCREEN ===== */
+  .quiz-progress {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .progress-info { flex: 1; }
+  .progress-bar-wrap {
+    background: var(--surface);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .progress-text { font-size: 13px; color: var(--muted); }
+  .progress-text b { color: var(--accent); }
+  .score-badge {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    text-align: center;
+    min-width: 70px;
+  }
+  .score-num { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; color: var(--green); }
+  .score-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+
+  /* Question card */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-meta {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;
+  }
+  .q-tag {
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--accent);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .q-num {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Rajdhani', sans-serif;
+  }
+  .q-text {
+    font-size: clamp(15px, 3vw, 17px);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* Answers */
+  .answers { display: flex; flex-direction: column; gap: 10px; }
+  .answer-btn {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .answer-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: rgba(245,166,35,0.06);
+    transform: translateX(3px);
+  }
+  .answer-btn:disabled { cursor: not-allowed; }
+  .answer-btn.correct {
+    border-color: var(--green);
+    background: rgba(34,197,94,0.1);
+    color: var(--text);
+  }
+  .answer-btn.wrong {
+    border-color: var(--red);
+    background: rgba(239,68,68,0.08);
+    color: var(--muted);
+  }
+  .answer-btn.reveal {
+    border-color: var(--green);
+    background: rgba(34,197,94,0.07);
+  }
+  .answer-letter {
+    width: 26px; height: 26px;
+    min-width: 26px;
+    border-radius: 6px;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 13px;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .answer-btn.correct .answer-letter { background: var(--green); color: #000; }
+  .answer-btn.wrong .answer-letter { background: var(--red); color: #fff; }
+  .answer-btn.reveal .answer-letter { background: var(--green); color: #000; }
+
+  /* Feedback */
+  .feedback-box {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: 14px;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .feedback-box.show { display: flex; align-items: center; gap: 12px; }
+  .feedback-box.correct-fb { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+  .feedback-box.wrong-fb { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #fc8181; }
+  .feedback-icon { font-size: 24px; }
+
+  /* Nav buttons */
+  .quiz-nav {
+    display: flex; gap: 10px; margin-top: 16px;
+  }
+  .nav-btn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .nav-btn.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
+  }
+  .nav-btn.primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .nav-btn.secondary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .nav-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+  /* ===== RESULTS SCREEN ===== */
+  .results-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .result-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 4px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 40px rgba(245,166,35,0.2);
+  }
+  .result-pct {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .result-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .result-sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .rstat {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid var(--border);
+  }
+  .rstat-val { font-family: 'Rajdhani', sans-serif; font-size: 28px; font-weight: 700; }
+  .rstat-val.g { color: var(--green); }
+  .rstat-val.r { color: var(--red); }
+  .rstat-val.b { color: var(--blue); }
+  .rstat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .result-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ra-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .ra-btn.main { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #000; }
+  .ra-btn.main:hover { opacity: 0.9; }
+  .ra-btn.outline { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .ra-btn.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Review mode */
+  .review-list { display: flex; flex-direction: column; gap: 12px; }
+  .review-item {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px;
+    border-left: 4px solid;
+  }
+  .review-item.ok { border-color: var(--green); }
+  .review-item.fail { border-color: var(--red); }
+  .review-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .review-answers { display: flex; flex-direction: column; gap: 4px; }
+  .review-ans { font-size: 12px; padding: 5px 10px; border-radius: 6px; }
+  .review-ans.correct { background: rgba(34,197,94,0.1); color: var(--green); }
+  .review-ans.wrong { background: rgba(239,68,68,0.08); color: #fc8181; }
+  .review-ans.plain { color: var(--muted); }
+
+  /* Scroll to top */
+  .scroll-top {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px; height: 44px;
+    background: var(--accent);
+    border: none;
+    border-radius: 50%;
+    color: #000;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.4);
+  }
+  .scroll-top.visible { display: flex; align-items: center; justify-content: center; }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .header-stats { gap: 12px; }
+    .stat-val { font-size: 18px; }
+    .result-stats { grid-template-columns: repeat(3,1fr); }
+    .rstat-val { font-size: 22px; }
+    .mode-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Study mode */
+  .study-controls {
+    display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .study-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .study-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .study-btn.active { background: var(--accent); border-color: var(--accent); color: #000; }
+
+  /* Back button */
+  .back-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    cursor: pointer; color: var(--muted);
+    transition: color 0.15s;
+  }
+  .back-row:hover { color: var(--accent); }
+  .back-row span { font-size: 13px; }
+</style>
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#f5a623">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LKW Quiz">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('SW registered'))
+        .catch(err => console.log('SW error:', err));
+    });
+  }
+</script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🚛</div>
+      <div>
+        <div class="logo-text">LKW & BUS</div>
+        <div class="logo-sub">Fragenkatalog Österreich</div>
+      </div>
+    </div>
+    <div class="header-stats" id="headerStats" style="display:none">
+      <div class="stat-item"><div class="stat-val" id="hTotal">0</div><div class="stat-lbl">Fragen</div></div>
+      <div class="stat-item"><div class="stat-val" id="hCorrect" style="color:var(--green)">0</div><div class="stat-lbl">Richtig</div></div>
+      <div class="stat-item"><div class="stat-val" id="hPct">0%</div><div class="stat-lbl">Quote</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- HOME -->
+  <div class="screen active" id="screenHome">
+    <div class="home-hero">
+      <div class="hero-title">Prüfungsvorbereitung</div>
+      <div class="hero-title" style="color:var(--text); font-size:clamp(20px,4vw,32px)">Bus &amp; LKW</div>
+      <div class="hero-sub">298 Fragen · 19 Themengebiete · Österreich</div>
+    </div>
+
+    <div class="mode-grid">
+      <div class="mode-card selected" onclick="selectMode('quiz')" id="modeQuiz">
+        <div class="mode-emoji">❓</div>
+        <div class="mode-name">Quiz-Modus</div>
+        <div class="mode-desc">Antworten auswählen, sofortiges Feedback</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('study')" id="modeStudy">
+        <div class="mode-emoji">📖</div>
+        <div class="mode-name">Lern-Modus</div>
+        <div class="mode-desc">Antwort zuerst sehen, dann aufdecken</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('random')" id="modeRandom">
+        <div class="mode-emoji">🎲</div>
+        <div class="mode-name">Zufalls-Quiz</div>
+        <div class="mode-desc">Alle Kategorien gemischt</div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">⚙️ Themengebiete auswählen</div>
+      <div class="select-controls">
+        <button class="btn-sm" onclick="selectAllZiffers()">Alle auswählen</button>
+        <button class="btn-sm" onclick="clearAllZiffers()">Alle abwählen</button>
+        <button class="btn-sm" onclick="selectLKW()">Nur LKW</button>
+        <button class="btn-sm" onclick="selectBus()">Nur Bus</button>
+      </div>
+      <div class="ziffer-grid" id="zifferGrid"></div>
+      <div class="count-row">
+        <span class="count-label">Anzahl Fragen:</span>
+        <div class="count-options">
+          <button class="count-btn" onclick="setCount(10)" id="cnt10">10</button>
+          <button class="count-btn" onclick="setCount(20)" id="cnt20">20</button>
+          <button class="count-btn selected" onclick="setCount(40)" id="cnt40">40</button>
+          <button class="count-btn" onclick="setCount(0)" id="cntAll">Alle</button>
+        </div>
+      </div>
+      <div class="selected-info" id="selInfo">0 Fragen ausgewählt</div>
+    </div>
+
+    <button class="start-btn" id="startBtn" onclick="startQuiz()">QUIZ STARTEN 🚀</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="screenQuiz">
+    <div class="back-row" onclick="goHome()">
+      ← <span>Zurück zur Startseite</span>
+    </div>
+
+    <div class="quiz-progress">
+      <div class="progress-info">
+        <div class="progress-text">Frage <b id="qCurrent">1</b> von <b id="qTotal">0</b></div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progressBar" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="score-badge">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-lbl">Richtig</div>
+      </div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <div class="q-meta" id="qMeta"></div>
+      <div class="q-text" id="qText"></div>
+    </div>
+
+    <div class="answers" id="answersContainer"></div>
+    <div class="feedback-box" id="feedbackBox">
+      <div class="feedback-icon" id="feedbackIcon"></div>
+      <div id="feedbackMsg"></div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="nav-btn secondary" id="prevBtn" onclick="prevQuestion()">← Zurück</button>
+      <button class="nav-btn primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="screenResults">
+    <div class="results-card">
+      <div class="result-circle">
+        <div class="result-pct" id="resPct">0%</div>
+      </div>
+      <div class="result-title" id="resTitle">Auswertung</div>
+      <div class="result-sub" id="resSub"></div>
+      <div class="result-stats">
+        <div class="rstat"><div class="rstat-val g" id="resCorrect">0</div><div class="rstat-lbl">Richtig</div></div>
+        <div class="rstat"><div class="rstat-val r" id="resWrong">0</div><div class="rstat-lbl">Falsch</div></div>
+        <div class="rstat"><div class="rstat-val b" id="resTotal">0</div><div class="rstat-lbl">Gesamt</div></div>
+      </div>
+      <div class="result-actions">
+        <button class="ra-btn main" onclick="restartQuiz()">🔄 Nochmals</button>
+        <button class="ra-btn outline" onclick="showReview()">📋 Überprüfen</button>
+        <button class="ra-btn outline" onclick="goHome()">🏠 Startseite</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEW -->
+  <div class="screen" id="screenReview">
+    <div class="back-row" onclick="showScreen('screenResults')">
+      ← <span>Zurück zur Auswertung</span>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const QUESTIONS = [{"id":"1","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"In welchem Drehzahlbereich des Motors fährt man mit den besten Verbrauchswerten?","answers":[{"text":"Bei Leerlaufdrehzahl","correct":false},{"text":"Im am Drehzahlmesser gelb gekennzeichneten Bereich","correct":false},{"text":"Im am Drehzahlmesser rot gekennzeichneten Bereich","correct":false},{"text":"Im am Drehzahlmesser grün gekennzeichneten Bereich","correct":true}]},{"id":"2","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie befahren eine Steigung. Wann müssen Sie bei Fahrzeugen mit manuellem Schaltgetriebe  zurückschalten?","answers":[{"text":"Wenn die Drehzahl auf die Leerlaufdrehzahl abgesunken ist","correct":false},{"text":"Wenn die Motordrehzahl trotz Vollgas unter den \"grünen Bereich\" des Drehzahlmessers  fällt","correct":true},{"text":"Wenn der Motor stark zu vibrieren beginnt","correct":false},{"text":"Wenn die Motordrehzahl bei Vollgas in den \"gelben Bereich\" des Drehzahlmessers steigt","correct":false}]},{"id":"3","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Folgen für das Drehmoment hat es, wenn mit einer Motordrehzahl außerhalb des  \"grünen Bereiches\" gefahren wird?","answers":[{"text":"Das Drehmoment steigt an","correct":false},{"text":"Das Drehmoment fällt ab","correct":true},{"text":"Das Drehmoment bleibt annähernd gleich","correct":false},{"text":"Das Drehmoment fällt ab und steigt dann wieder an","correct":false}]},{"id":"4","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Folgen für den Kraftstoffverbrauch hat es, wenn mit einer Motordrehzahl außerhalb  des \"grünen Bereiches\" gefahren wird?","answers":[{"text":"Der Kraftstoffverbrauch steigt an","correct":true},{"text":"Der Kraftstoffverbrauch fällt ab","correct":false},{"text":"Der Kraftstoffverbrauch bleibt annähernd gleich","correct":false},{"text":"Der Kraftstoffverbrauch fällt ab und steigt dann wieder an","correct":false}]},{"id":"5","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wodurch kann eine Verminderung der schädlichen Anteile im Abgas eines Dieselmotors  erzielt werden?","answers":[{"text":"Durch Nachbehandlung der Abgase mit Wasserstoff","correct":false},{"text":"Durch einen SCR-Katalysator und Zuführung von \"AdBlue\"","correct":true},{"text":"Durch Beimengung von Benzin zum Dieselkraftstoff","correct":false},{"text":"Durch Nachbehandlung der Abgase mit Stickstoff","correct":false}]},{"id":"6","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Motorarten werden bei Nutzfahrzeugen hauptsächlich eingesetzt?","answers":[{"text":"Ottomotor","correct":false},{"text":"Dieselmotor","correct":true},{"text":"Wasserstoffmotor","correct":false},{"text":"Elektromotor","correct":false}]},{"id":"7","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Am Armaturenbrett Ihres Fahrzeuges befindet sich ein Drehzahlmesser. Wofür steht das  grüne Kennfeld?","answers":[{"text":"Für das niedrigste Drehmoment des Motors","correct":false},{"text":"Für die höchste Leistung des Motors","correct":false},{"text":"Für optimale Bodenhaftung","correct":false},{"text":"Für den spezifisch geringsten Kraftstoffverbrauch des Motors","correct":true}]},{"id":"8","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Am Armaturenbrett Ihres Fahrzeuges befindet sich ein Drehzahlmesser. Was zeigt das rote  Kennfeld an?","answers":[{"text":"Die niedrigste Leistung des Motors","correct":false},{"text":"Das geringste Drehmoment des Motors","correct":false},{"text":"Das höchste Drehmoment des Motors","correct":false},{"text":"Den Drehzahlbereich, in dem der Motor nicht betrieben werden soll","correct":true}]},{"id":"9","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Warum soll der Motor im \"grünen Bereich\" des Drehzahlmessers betrieben werden?","answers":[{"text":"Um den geringsten spezifischen Kraftstoffverbrauch des Motors zu nutzen","correct":true},{"text":"Um den höchsten spezifischen Kraftstoffverbrauch des Motors zu erzielen","correct":false},{"text":"Um den Ölverbrauch des Motors gering zu halten","correct":false},{"text":"Um eine möglichst gleichmäßige Abnutzung der Reifen zu erzielen","correct":false}]},{"id":"10","ziffer":"1a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wodurch kann eine Verminderung der schädlichen Anteile im Abgas eines Dieselmotors  erzielt werden?","answers":[{"text":"Durch Nachbehandlung der Abgase mit Wasserstoff","correct":false},{"text":"Durch Abgasrückführung in Kombination mit einem Dieselpartikelfilter","correct":true},{"text":"Durch Beimengung von Benzin zum Dieselkraftstoff","correct":false},{"text":"Durch Nachbehandlung der Abgase mit Stickstoff","correct":false}]},{"id":"31","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Vorteile hat es, dass die Federspeicherbremsanlage durch Entlüften eingebremst  wird?","answers":[{"text":"Das Fahrzeug kann nicht entwendet werden","correct":false},{"text":"Das Fahrzeug kann auch ohne Druckluft verwendet werden","correct":false},{"text":"Das Fahrzeug bleibt auch bei einem Luftverlust in den Vorratsbehältern eingebremst","correct":true},{"text":"Der Druckluftverbrauch ist geringer als beim Belüften der Radbremszylinder","correct":false}]},{"id":"32","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie lenken ein vollbeladenes Fahrzeug. Welche Handlungen schaden der Lenkung?","answers":[{"text":"Zu langsames Fahren auf schlechten Straßen","correct":false},{"text":"Lenken am Stand","correct":true},{"text":"Einschlagen der Vorderräder während der Fahrt","correct":false},{"text":"Längere Fahrten mit hohem Tempo auf der Autobahn","correct":false}]},{"id":"33","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welches Bremssystem ist bei schweren Nutzfahrzeugen als Betriebsbremse in der Regel  eingebaut?","answers":[{"text":"Eine reine Flüssigkeitsbremsanlage","correct":false},{"text":"Eine Druckluftbremsanlage","correct":true},{"text":"Eine elektrische Bremsanlage","correct":false},{"text":"Eine Auflaufbremsanalage","correct":false}]},{"id":"34","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wozu dient das Entwässerungsventil an den Vorratsbehältern einer Druckluftbremsanlage?","answers":[{"text":"Damit die Funktionstüchtigkeit eines Lufttrockners überprüft werden kann","correct":true},{"text":"Um einen zu geringen Druck in der Anlage ablassen zu können","correct":false},{"text":"Um im Pannenfall den Federspeicherbremszylinder lösen zu können","correct":false},{"text":"Um bei Ausfall der Druckluftversorgung die Anlage fremdbelüften zu können","correct":false}]},{"id":"35","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Das Aufpumpen der Vorratsbehälter einer Druckluftbremsanlage dauert wesentlich länger  als gewöhnlich. Was kann die Ursache dafür sein?","answers":[{"text":"Zu hohe Luftfeuchtigkeit im Sommer","correct":false},{"text":"Geringe Lufttemperatur im Winter","correct":false},{"text":"Kondenswasser in den Vorratsbehältern","correct":false},{"text":"Undichtheiten im Vorratssystem","correct":true}]},{"id":"36","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihr Fahrzeug hat eine Druckluftbremsanlage. Woran erkennen Sie einen Tristopzylinder?","answers":[{"text":"Am Bremsgestänge","correct":false},{"text":"Er hat drei Zuleitungen","correct":false},{"text":"Er hat zwei Zuleitungen","correct":true},{"text":"Er hat drei getrennte Zylinder","correct":false}]},{"id":"37","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Der Vorratsdruck einer Druckluftbremsanlage fällt bei einer Vollbremsung um mehr als 0,7  bar ab. Welche Ursache kann dies haben?","answers":[{"text":"Undichtheit in den Bremskreisen","correct":true},{"text":"Undichtheit in den Vorratskreisen","correct":false},{"text":"Der Kompressor liefert zu wenig Luft","correct":false},{"text":"Eine Überladung einer Fahrzeugachse","correct":false}]},{"id":"38","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren mit einem voll beladenen Fahrzeug in einem längeren Gefälle. Wie können Sie die  Wirkung der Verlangsameranlage verstärken?","answers":[{"text":"Durch Zurückschalten auf einen niedrigen Getriebegang","correct":true},{"text":"Durch Hochschalten auf einen höheren Getriebegang","correct":false},{"text":"Durch ständiges Betätigen der Betriebsbremsanlage","correct":false},{"text":"Durch vorsichtiges Betätigen der Feststellbremsanlage","correct":false}]},{"id":"39","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Die Warnleuchte für den Druckluftvorrat der Bremsanlage leuchtet auf. Was bedeutet das?","answers":[{"text":"Der Vorratsdruck ist stark abgesunken","correct":true},{"text":"Der Vorratsdruck ist stark angestiegen","correct":false},{"text":"Der Feuchtigkeitsgehalt der Druckluft ist zu hoch","correct":false},{"text":"Die Kartusche am Lufttrockner muss getauscht werden","correct":false}]},{"id":"40","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Die Warnleuchte für den Druckluftvorrat leuchtet auf. Wie verhalten Sie sich?","answers":[{"text":"Ich halte an und aktiviere den Fremdbelüftungsanschluss","correct":false},{"text":"Ich fahre weiter und beobachte die Warnleuchte","correct":false},{"text":"Ich fahre weiter und beobachte die Druckmanometer","correct":false},{"text":"Ich halte an und sehe in der Betriebsanleitung nach, was zu tun ist","correct":true}]},{"id":"41","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihr Fahrzeug hat einen technischen Defekt an der Druckluftbremsanlage. Die  Federspeicherbremse kann wegen eines zu geringen Vorratsdrucks nicht mehr gelöst  werden. Was müssen Sie tun, um das Fahrzeug abschleppen zu können?","answers":[{"text":"Ich muss den Federspeicher mechanisch oder durch Fremdbelüften lösen","correct":true},{"text":"Nichts, weil das Fahrzeug immer abgeschleppt werden kann","correct":false},{"text":"Ich muss die Antriebsräder abmontieren","correct":false},{"text":"Ich muss die Zuluftleitung am Federspeicherbremszylinder abschließen","correct":false}]},{"id":"42","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Womit können Sie die Wirkung einer Motorstaubremse abstufen?","answers":[{"text":"Mit einem Hebel an der Lenksäule oder einem Schalter am Armaturenbrett","correct":true},{"text":"Mit dem Fußbremspedal","correct":false},{"text":"Mit einem Druckschalter am Schalthebel","correct":false},{"text":"Mit dem Handbremsventil","correct":false}]},{"id":"43","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie befahren mit Ihrem voll beladenen Fahrzeug eine längere Gefällestrecke. Welche Gefahr  besteht, wenn Sie dabei durchgehend die Betriebsbremse verwenden?","answers":[{"text":"Die Radbremsen können überhitzen und ausfallen","correct":true},{"text":"Es besteht keine Gefahr","correct":false},{"text":"Der Druckluftvorrat kann überhitzen","correct":false},{"text":"Die Räder können durch überhitzte Druckluft blockieren","correct":false}]},{"id":"44","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie befahren mit Ihrem Fahrzeug eine längere Gefällestrecke. Welche Bremse sollten Sie  überwiegend verwenden?","answers":[{"text":"Die Betriebsbremse","correct":false},{"text":"Die Verlangsameranlage","correct":true},{"text":"Die Feststellbremse","correct":false},{"text":"Die Hilfsbremse","correct":false}]},{"id":"45","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie machen die tägliche Abfahrtskontrolle. Was müssen Sie bei der Druckluftbremsanlage  kontrollieren?","answers":[{"text":"Den Leerweg am Bremspedal","correct":false},{"text":"Ob bei abgestelltem Motor Zischgeräusche aus der Druckluftbremsanlage hörbar sind","correct":true},{"text":"Den Leerweg am Handbremshebel","correct":false},{"text":"Die Prüfstellung am Bremspedal","correct":false}]},{"id":"46","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie machen die tägliche Abfahrtskontrolle. Dabei hören Sie bei abgestelltem Motor  Zischgeräusche aus der Druckluftbremsanlage. Wie müssen Sie sich verhalten?","answers":[{"text":"Ich repariere die undichte Stelle provisorisch mit einem farbigen Isolierband","correct":false},{"text":"Ich darf das Fahrzeug nicht in Betrieb nehmen und verständige den Zulassungsbesitzer","correct":true},{"text":"Ich fahre bis zum nächsten regulären Werkstatttermin weiter","correct":false},{"text":"Ich fahre weiter und verwende dabei vorwiegend die Verlangsameranlage","correct":false}]},{"id":"47","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie überprüfen die Dichtheit der Vorratskreise. Um wieviel darf der Druck in 10 Minuten  absinken?","answers":[{"text":"5 % des Abschaltdruckes","correct":false},{"text":"Nicht merkbar","correct":true},{"text":"10 % des Abschaltdruckes","correct":false},{"text":"2 % des Abschaltdruckes","correct":false}]},{"id":"48","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie überprüfen die Dichtheit des Vorratskreises. Um wie viel darf der Druck in 3 Minuten  absinken?","answers":[{"text":"Um 2 % des Abschaltdruckes","correct":false},{"text":"Um 10 % des Abschaltdruckes","correct":false},{"text":"Um 5 % des Abschaltdruckes","correct":false},{"text":"Nicht merkbar","correct":true}]},{"id":"49","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren mit einem voll beladenen Fahrzeug in einem längeren Gefälle. Woran können Sie  erkennen, dass die Motorbremswirkung ausreicht?","answers":[{"text":"Das Fahrzeug verzögert stark ohne mit der Betriebsbremse zu bremsen","correct":false},{"text":"Die Fahrgeschwindigkeit bleibt ohne zu bremsen annähernd gleich","correct":true},{"text":"Der Motor wird nicht zu heiß","correct":false},{"text":"Ich muss ständig zusätzlich mitbremsen","correct":false}]},{"id":"50","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Aufgabe hat das Traktionskontrollsystem?","answers":[{"text":"Es verhindert das Zurückrollen des Fahrzeuges beim Anfahren in Steigungen","correct":false},{"text":"Es verhindert das Vorwärtsrollen des Fahrzeuges beim Anfahren in Gefällen","correct":false},{"text":"Es verhindert das Schieben des Fahrzeuges beim Fahren von Kurven","correct":false},{"text":"Es erleichtert das Anfahren bei rutschigen Fahrbahnverhältnissen","correct":true}]},{"id":"51","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Aufgabe hat das elektronische Stabilitätssystem \"ESP\"?","answers":[{"text":"Es verringert immer den Bremsweg","correct":false},{"text":"Es verringert die Ansprechzeit der Druckluftbremsanlage","correct":false},{"text":"Es vermindert die Schleudergefahr bei rutschigen Fahrbahnverhältnissen","correct":true},{"text":"Es erleichtert einen Fahrstreifenwechsel","correct":false}]},{"id":"52","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihr Fahrzeug ist mit einem Notbremsassistenzsystem ausgestattet. Wann kann dieses System  versagen?","answers":[{"text":"Wenn während der elektronischen Regelung die Betriebsbremse betätigt wird","correct":false},{"text":"Wenn der Abstandssensor verschmutzt ist oder durch die Witterung in seiner Funktion  beeinträchtigt wird","correct":true},{"text":"Wenn der Abstandssensor vor jeder Abfahrt nicht mechanisch kalibriert wird","correct":false},{"text":"Wenn während der elektronischen Regelung das Lenkrad zu fest gehalten wird","correct":false}]},{"id":"53","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihr Fahrzeug ist mit einem Abstandsregeltempomat ausgestattet. Was ist der Vorteil dieses  Assistenzsystems?","answers":[{"text":"Auffahrunfälle werden auf jeden Fall verhindert","correct":false},{"text":"Eine höhere Durchschnittsgeschwindigkeit kann erreicht werden","correct":false},{"text":"Stressfreieres Fahren und die Gefahr eines Auffahrunfalles wird verringert","correct":true},{"text":"Das Lenkrad muss während der Fahrt nicht mehr gehalten werden","correct":false}]},{"id":"54","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was ist der Unterschied zwischen einem \"Tempomat\" und einem \"Limiter\"?","answers":[{"text":"Beim \"Limiter\" muss Gas gegeben werden, um die Geschwindigkeit zu halten. Der  \"Tempomat\" hält die Geschwindigkeit, auch wenn kein Gas gegeben wird","correct":true},{"text":"Beim \"Tempomat\" muss Gas gegeben werden, um die Geschwindigkeit zu halten. Der  \"Limiter\" hält die Geschwindigkeit, auch wenn kein Gas gegeben wird","correct":false},{"text":"Keiner. Es handelt sich um zwei unterschiedliche Bezeichnungen für dasselbe  Assistenzsystem","correct":false},{"text":"Der \"Limiter\" begrenzt die Lenkzeit. Der \"Tempomat\" hält die Geschwindigkeit","correct":false}]},{"id":"55","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was ist ein \"ABS\"?","answers":[{"text":"Ein Anti-Blockier-System","correct":true},{"text":"Eine hydraulische Strömungsbremse","correct":false},{"text":"Eine automatisch lastabhängige Bremskraftregelung","correct":false},{"text":"Eine Anfahrhilfe","correct":false}]},{"id":"56","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter dem \"Abschaltdruck\" einer Druckluftbremsanlage?","answers":[{"text":"Der Druck, bei dem der Druckregler den Kompressor in den Lastlauf schaltet","correct":false},{"text":"Der Druck, bei dem der Kompressor stehen bleibt","correct":false},{"text":"Der Druck, ab dem der Kompressor keine Luft in die Vorratsbehälter fördert","correct":true},{"text":"Der Druck, bei dem der Druckregler das Abblasen der Druckluft ins Freie abstellt","correct":false}]},{"id":"57","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter dem \"Einschaltdruck\" einer Druckluftbremsanlage?","answers":[{"text":"Das ist der Druck, bei dem der Druckregler die vom Kompressor geförderte Luft ins Freie  lässt","correct":false},{"text":"Das ist der Druck, bei dem der Druckregler die vom Kompressor geförderte Luft wieder in  die Luftbehälter lässt","correct":true},{"text":"Das ist der Druck, bei dem der Druckregler den Kompressor in den Leerlauf schaltet","correct":false},{"text":"Das ist der Druck, bei dem der Druckregler das Abblaseventil einschaltet","correct":false}]},{"id":"58","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter dem \"Sicherungsdruck\" einer Druckluftbremsanlage?","answers":[{"text":"Das ist jener Druck von 11 - 14 bar, bei dem das Sicherheitsventil im Druckregler öffnet,  wenn der Abschaltvorgang versagt","correct":false},{"text":"Das ist der Selbststabilisierungsdruck eines Kompressors","correct":false},{"text":"Der Druck, bei dem das Fahrzeug sicherheitshalber automatisch abgebremst wird","correct":false},{"text":"Das ist jener Druck, der bei Ausfall eines Druckluftkreises erhalten bleiben muss","correct":true}]},{"id":"59","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter dem \"Betriebsdruck\" einer Druckluftbremsanlage?","answers":[{"text":"Ist jener Druck, der bei einer Bremsung höchstens erreicht werden kann","correct":false},{"text":"Ist der Druckunterschied zwischen Einschalt- und Abschaltdruck","correct":false},{"text":"Ist ein Druck von 65 % des Abschaltdruckes","correct":false},{"text":"Ist jener Druck, ab dem mit dem Fahrzeug gefahren werden darf","correct":true}]},{"id":"60","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter einem \"EBS-Bremssystem\"?","answers":[{"text":"Eine Bremsanlage, welche die Bremsenergie elektrisch bereitstellt","correct":false},{"text":"Eine Bremsanlage, die vollständig elektronisch geregelt wird","correct":true},{"text":"Eine Druckluftbremse mit Anti-Blockier-System","correct":false},{"text":"Eine Druckluftbremse mit Bremsdruckkraftbegrenzer","correct":false}]},{"id":"61","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter einer \"Druckluftbremsanlage\"?","answers":[{"text":"Eine Bremsanlage, bei der die Bremskraft durch Druckluft erzeugt wird","correct":true},{"text":"Eine Bremsanlage, bei der die Bremskraft durch Flüssigkeitsdruck erzeugt wird","correct":false},{"text":"Eine Bremsanlage, bei der die Bremskraft durch Unterdruck erzeugt wird","correct":false},{"text":"Eine Bremsanlage, bei der die Bremskraft elektrisch erzeugt wird","correct":false}]},{"id":"62","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was verstehen Sie unter einer ALB-Regelung bei einer Druckluftbremsanlage?","answers":[{"text":"Eine Bremsanlage mit Blockierschutz","correct":false},{"text":"Eine Regelung der Bremskraft entsprechend den Witterungsverhältnissen","correct":false},{"text":"Eine Regelung, welche die Bremskraft an den Achsen nach dem Beladungszustand  automatisch anpasst","correct":true},{"text":"Eine automatisch selbstnachstellende Bremsanlage","correct":false}]},{"id":"63","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was ist eine Verlangsameranlage?","answers":[{"text":"Ein System, mit dem der Reifenverschleiß verringert werden kann","correct":false},{"text":"Ein System, mit dem der Motorölverbrauch verringert werden kann","correct":false},{"text":"Ein System, mit dem ein mitgeführter Anhänger alleine abgebremst werden kann","correct":false},{"text":"Ein System, mit dem die Geschwindigkeit verschleißfrei vermindert werden kann","correct":true}]},{"id":"64","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Aufgabe hat der Druckregler einer Druckluftbremsanlage?","answers":[{"text":"Er regelt die Fördermenge","correct":false},{"text":"Er bestimmt den Sicherungsdruck","correct":false},{"text":"Er regelt den Betriebsdruck zwischen Ein- und Abschaltdruck","correct":true},{"text":"Er regelt den Bremsdruck","correct":false}]},{"id":"65","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Aufgabe hat der Lufttrockner einer Druckluftbremsanlage?","answers":[{"text":"Der vom Kompressor geförderten Luft die Feuchtigkeit zu entziehen","correct":true},{"text":"Die Luft des Fahrerhauses zu trocknen","correct":false},{"text":"Die angesaugte Luft des Motors zu trocknen, um die Leistung zu steigern","correct":false},{"text":"Die vom Turbolader komprimierte Luft zu trocknen","correct":false}]},{"id":"66","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was ist ein \"Tristopzylinder\" bei einer Druckluftbremsanlage?","answers":[{"text":"Ein Bremszylinder mit drei Zuleitungen","correct":false},{"text":"Eine Kombination aus Kolben- und Membranbremszylinder","correct":false},{"text":"Ein Bremszylinder mit drei Kolbenstangen","correct":false},{"text":"Eine Kombination aus Membran- und Federspeicherzylinder","correct":true}]},{"id":"67","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche der folgenden Bremsanlagen funktioniert ohne nennenswerten Verschleiß?","answers":[{"text":"Hydraulische Strömungsbremse (Retarder)","correct":true},{"text":"Feststellbremse","correct":false},{"text":"Fahrtwindbremse","correct":false},{"text":"Motorkolbenbremse","correct":false}]},{"id":"68","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welchen Vorteil hat ein elektronisch geregeltes Bremssystem gegenüber einer  Druckluftbremse ohne EBS?","answers":[{"text":"Es darf damit schneller gefahren werden","correct":false},{"text":"Der Kraftstoffverbrauch wird geringer","correct":false},{"text":"Die Ansprechzeit der Druckluftbremsanlage ist wesentlich kürzer","correct":true},{"text":"Nach Ausfall eines Druckluftbremskreises wirkt die Bremse immer noch auf alle Räder","correct":false}]},{"id":"70","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welchen Zweck haben Verlangsameranlagen?","answers":[{"text":"Sie entlasten und schonen die Betriebsbremsanlage","correct":true},{"text":"Sie verhindern das Überhitzen der Reifen","correct":false},{"text":"Sie verringern den Kraftstoffverbrauch","correct":false},{"text":"Mit ihnen kann man bei Ausfall der Betriebsbremsanlage das Fahrzeug zum Stillstand  bringen","correct":false}]},{"id":"71","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Woran erkennen Sie nach dem Starten des Fahrzeugmotors, dass die Druckluftbremsanlage  den Betriebsdruck erreicht hat?","answers":[{"text":"Die Kontrolllampen erlöschen, der Warnsummer verstummt","correct":true},{"text":"Das Manometer zeigt zumindest den Abschaltdruck an","correct":false},{"text":"Das Motorwagenbremsventil lässt sich nicht mehr ganz durchdrücken","correct":false},{"text":"Es lässt sich ein Gang einlegen","correct":false}]},{"id":"72","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Während der Fahrt leuchtet die ABS-Kontrollleuchte auf. Wie verhalten Sie sich?","answers":[{"text":"Haltemöglichkeit aufsuchen, Motor abstellen und nochmals starten; falls die  Kontrollleuchte immer noch leuchtet, Werkstätte aufsuchen","correct":true},{"text":"Anhalten; die Kontrollleuchte signalisiert, dass nur noch ein Kreis der pneumatischen  Bremsanlage funktioniert","correct":false},{"text":"Sofort Anhalten; jede Weiterfahrt ist verboten","correct":false},{"text":"Weiterfahren; es wird nur zwischendurch angezeigt, dass das ABS noch in Ordnung ist","correct":false}]},{"id":"73","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wodurch kann es zum Überhitzen der Radbremsen kommen?","answers":[{"text":"Durch oftmaliges Betätigen der Motorstaubremse","correct":false},{"text":"Durch ständiges Bremsen mit der Betriebsbremsanlage beim Bergabfahren","correct":true},{"text":"Durch Einsetzen der Verlangsameranlagen","correct":false},{"text":"Durch sehr hohe Temperaturen des Straßenbelages","correct":false}]},{"id":"74","ziffer":"1b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Können Sie die Wirkung der Motorstaubremse abstufen?","answers":[{"text":"Ja, über den Druckregler","correct":false},{"text":"Ja, durch die Fußkraft","correct":false},{"text":"Ja, über den Handbremshebel","correct":false},{"text":"Ja, über die Wahl des Getriebeganges","correct":true}]},{"id":"91","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren bergauf. Die Anzeige des Drehzahlmessers wandert aus dem grünen Bereich in  den roten. Was müssen Sie tun?","answers":[{"text":"Das Schaltgetriebe in den Leerlauf schalten und das Fahrzeug rollen lassen","correct":false},{"text":"Auf den nächstniedrigeren Getriebegang zurückschalten","correct":false},{"text":"Sofort anhalten und den Motor abstellen","correct":false},{"text":"Auf einen höheren Getriebegang schalten","correct":true}]},{"id":"92","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wodurch lässt sich Kraftstoff einsparen?","answers":[{"text":"Durch frühes Hochschalten","correct":true},{"text":"Durch Laufenlassen des Motors vor geschlossenen Bahnschranken","correct":false},{"text":"Durch Laufenlassen des Motors beim kurzfristigen Be- und Entladen des Fahrzeuges","correct":false},{"text":"Durch häufiges Fahren im oberen Drehzahlbereich des Motors","correct":false}]},{"id":"93","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was führt zu einer Verminderung des Kraftstoffverbrauches?","answers":[{"text":"Fahren mit zu geringem Luftdruck in den Reifen","correct":false},{"text":"Fahren mit hoher Motordrehzahl","correct":false},{"text":"Fahren im \"roten\" Bereich des Drehzahlmessers","correct":false},{"text":"Fahren im \"grünen\" Bereich des Drehzahlmessers","correct":true}]},{"id":"94","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wo finden Sie Angaben über den optimalen Drehzahlbereich Ihres Fahrzeuges?","answers":[{"text":"Am Ausdruck aus dem digitalen Kontrollgerät","correct":false},{"text":"Auf einem Aufkleber an der rechten Fahrzeugseite","correct":false},{"text":"In der Betriebsanleitung des Fahrzeuges","correct":true},{"text":"In der Zulassungsbescheinigung des Fahrzeuges","correct":false}]},{"id":"95","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wozu dient der grüne Bereich des Drehzahlmessers des Motors?","answers":[{"text":"Er zeigt den Drehzahlbereich des Motors mit dem geringsten spezifischen  Kraftstoffverbrauch unter Volllast und den Drehzahlbereich des Motors mit großem  Drehmoment an","correct":true},{"text":"Er zeigt den Drehzahlbereich des Motors mit dem niedrigsten Drehmoment an","correct":false},{"text":"Er zeigt den Drehzahlbereich des Motors mit dem höchsten Kraftstoffverbrauch an","correct":false},{"text":"Er zeigt den Drehzahlbereich des Motors mit dem höchsten Verschleiß an","correct":false}]},{"id":"96","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren im Ortsgebiet hinter anderen Fahrzeugen. Wie groß sollte ein angemessener  Sicherheitsabstand mindestens sein?","answers":[{"text":"2 Sekunden","correct":true},{"text":"1 Sekunde","correct":false},{"text":"50 m","correct":false},{"text":"Eine Fahrzeuglänge","correct":false}]},{"id":"97","ziffer":"1c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren mit einem 8 m langen Fahrzeug im Freiland. Vor Ihnen fährt ein  Sattelkraftfahrzeug. Welchen Mindestabstand müssen Sie einhalten, wenn Sie nicht  überholen wollen oder dürfen?","answers":[{"text":"Höchstens den doppelten Anhalteweg","correct":false},{"text":"Den erforderlichen Sicherheitsabstand, jedoch höchstens 20 m","correct":false},{"text":"Den erforderlichen Sicherheitsabstand, jedoch mindestens 50 m","correct":true},{"text":"Den erforderlichen Sicherheitsabstand, jedoch höchstens eine Fahrzeuglänge","correct":false}]},{"id":"121","ziffer":"1d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welchen Sicherheitsabstand haben Sie als Lenker eines 8 m langen Fahrzeuges auf  Freilandstraßen einzuhalten, wenn Sie hinter einem Fahrzeug mit größeren  Längsabmessungen (z.B. Lkw oder Omnibus) fahren?","answers":[{"text":"25 m","correct":false},{"text":"200 m","correct":false},{"text":"1 Sekunde - Abstand","correct":false},{"text":"50 m","correct":true}]},{"id":"122","ziffer":"1d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren mit einem Nutzfahrzeug bei Schneefall auf einer Autobahn. Wie sollten Sie sich  verhalten?","answers":[{"text":"Ich achte auf einen ausreichenden Sicherheitsabstand zu den vor mir fahrenden  Fahrzeugen und achte im Verkehrsfunk auf Meldungen über den Straßenzustand auf  diesem Autobahnteilstück","correct":true},{"text":"Ich wechsle auf den linken Fahrstreifen und überhole alle Fahrzeuge, die vor mir langsam  fahren","correct":false},{"text":"Ich muss sofort am Pannenstreifen anhalten und Schneeketten auf den Antriebsrädern  montieren","correct":false},{"text":"Ich muss sofort am Pannenstreifen anhalten und Schneeketten auf den Vorderrädern  montieren","correct":false}]},{"id":"123","ziffer":"1d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie lenken in einem Gegenverkehrsbereich einer Autobahn ein Nutzfahrzeug. Sie bemerken,  dass der rechte vordere Reifen defekt geworden ist. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich schalte die Alarmblinkanlage ein, bremse ab und fahre in die nächste Pannenbucht","correct":true},{"text":"Ich halte auf dem ersten Fahrstreifen der Autobahn an","correct":false},{"text":"Ich fahre solang weiter, bis die Autobahnbaustelle endet. Danach halte ich am  Pannenstreifen an","correct":false},{"text":"Ich fahre solang weiter, bis die nächste Autobahnausfahrt kommt. Dort fahre ich von der  Autobahn ab und wechsle dann den Reifen","correct":false}]},{"id":"124","ziffer":"1d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie befahren mit einem Nutzfahrzeug ein schneebedecktes Gefälle. Das Gefälle ist gestreut  und hat eine Neigung von 15 %. Benötigt das Nutzfahrzeug Schneeketten?","answers":[{"text":"Nein","correct":false},{"text":"Ja, auf den Antriebsrädern und auf den gelenkten Vorderrädern","correct":true},{"text":"Ja, auf allen Rädern","correct":false},{"text":"Ja, aber nur auf den gelenkten Vorderrädern","correct":false}]},{"id":"125","ziffer":"1d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie befahren mit einem Nutzfahrzeug ein schneebedecktes Gefälle. Das Gefälle ist gestreut  und hat eine Neigung von 15 %. Mit welchen Gefahren müssen Sie rechnen, wenn Sie  versuchen, das Gefälle ohne Schneeketten zu bewältigen?","answers":[{"text":"Das Fahrzeug könnte ins Rutschen kommen und nicht mehr lenkbar werden","correct":true},{"text":"Der Motor könnte überlastet werden","correct":false},{"text":"Die Bremsen könnten überhitzen","correct":false},{"text":"Das Schaltgetriebe könnte überlastet werden","correct":false}]},{"id":"126","ziffer":"1d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Tätigkeiten können beim Lenken eines Fahrzeuges stark ablenken?","answers":[{"text":"Das Rauchen von Zigaretten, Essen von Speisen, Trinken","correct":true},{"text":"Die Bedienung eines Abstands-Tempomaten","correct":false},{"text":"Das Einschalten der Scheibenwischer","correct":false},{"text":"Das auf- oder abblenden des Fernlichts","correct":false}]},{"id":"151","ziffer":"1e","klasse":"C1, C1E, C, CE","question":"Sie lenken einen LKW der Fahrzeugklasse N3. In welchem Bereich ist die Gefahr, durch \"Tote  Winkel\" im Sichtbereich andere Verkehrsteilnehmer zu übersehen, besonders groß?","answers":[{"text":"Unmittelbar vor der Windschutzscheibe, hinter und seitlich rechts neben dem Fahrzeug","correct":true},{"text":"Nur seitlich links neben dem Fahrzeug","correct":false},{"text":"Nur seitlich rechts neben dem Fahrzeug","correct":false},{"text":"Nur hinter dem Fahrzeug","correct":false}]},{"id":"152","ziffer":"1e","klasse":"C1, C1E, C, CE","question":"Bei welchen Fahrmanövern müssen Sie beim Lenken eines LKW´s die von \"Toten Winkeln\" in  den Sichtbereichen ausgehenden Gefahren besonders berücksichtigen?","answers":[{"text":"Beim Einbiegen nach rechts, Rückwärtsfahren und Überholen","correct":true},{"text":"Beim Einbiegen nach links","correct":false},{"text":"Nur beim Einbiegen nach rechts","correct":false},{"text":"Nur beim Überholen","correct":false}]},{"id":"171","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wovon hängt die Größe des Reibbeiwertes zwischen Ladung und Ladefläche grundsätzlich  ab?","answers":[{"text":"Von der Gewichtskraft der Ladung","correct":false},{"text":"Von der Fahrgeschwindigkeit","correct":false},{"text":"Von der Rutschfestigkeit der Ladefläche und des Ladegutes","correct":true},{"text":"Von der Größe der Ladefläche","correct":false}]},{"id":"172","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welche Ladungen müssen am LKW gesichert werden?","answers":[{"text":"Alle","correct":true},{"text":"Nur solche, die verrutschen können","correct":false},{"text":"Nur solche, die leicht sind","correct":false},{"text":"Nur solche, die schwer sind","correct":false}]},{"id":"174","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was sind Hilfsmittel für die kraftschlüssige Ladungssicherung?","answers":[{"text":"Luftkissen","correct":false},{"text":"Paletten","correct":false},{"text":"Kantenschutzvorrichtungen","correct":true},{"text":"Anschlagleisten","correct":false}]},{"id":"175","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie wirkt sich eine niedrige Reibungszahl zwischen Ladefläche und Ladegut auf die  Ladungssicherung aus?","answers":[{"text":"Je höher die Reibungszahl, desto höher die notwendige Sicherungskraft","correct":false},{"text":"Je geringer die Reibungszahl, desto höher die notwendige Sicherungskraft","correct":true},{"text":"Gar nicht. Die notwendige Sicherungskraft hängt nur vom Gewicht der Ladung ab","correct":false},{"text":"Gar nicht. Die notwendige Sicherungskraft hängt nur vom der Größe der Ladefläche ab","correct":false}]},{"id":"176","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Womit ist eine über einen Meter über das Fahrzeug hinausragende Ladung zu kennzeichnen?","answers":[{"text":"Mit einem roten Tuch","correct":false},{"text":"Mit einer weißen Tafel (25 cm x 40 cm) mit rotem Rand","correct":true},{"text":"Mit einer rot-weiß gestreiften Tafel (25 cm x 25 cm)","correct":false},{"text":"Mit einer gelb-roten Drehleuchte","correct":false}]},{"id":"177","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie groß ist der Beschleunigungsbeiwert, der bei der Ladungssicherung im Straßenverkehr  nach vorne mindestens zu berücksichtigen ist?","answers":[{"text":"0,25","correct":false},{"text":"1,00","correct":false},{"text":"0,50","correct":false},{"text":"0,80","correct":true}]},{"id":"178","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie groß ist der Beschleunigungsbeiwert, der bei der Ladungssicherung im Straßenverkehr  nach hinten mindestens zu berücksichtigen ist?","answers":[{"text":"0,50","correct":true},{"text":"1,00","correct":false},{"text":"0,25","correct":false},{"text":"0,80","correct":false}]},{"id":"179","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie groß ist der Beschleunigungsbeiwert, der bei der Ladungssicherung im Straßenverkehr  zur Seite mindestens zu berücksichtigen ist?","answers":[{"text":"0,80","correct":false},{"text":"1,00","correct":false},{"text":"0,25","correct":false},{"text":"0,50","correct":true}]},{"id":"180","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welche der Angaben am Etikett eines Zurrgurtes sind für das Niederzurren von Bedeutung?","answers":[{"text":"Die Vorspannkraft, die im Gurt für das Niederzurren genutzt werden kann (STF)","correct":true},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei geradem Zug (LC)","correct":false},{"text":"Die Länge (L)","correct":false},{"text":"Das Erzeugerdatum","correct":false}]},{"id":"181","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was ist \"Formschluss\" bei der Ladungssicherung?","answers":[{"text":"Verladen der Last mit Freilassen von Zwischenräumen","correct":false},{"text":"Bündiges, lückenloses Verladen des Ladeguts auf der Ladefläche oder z.B. Festsetzen der  Ladung an Aufbauteilen durch Direktzurren","correct":true},{"text":"Festsetzen der Ladung auf der Ladefläche durch Niederzurren","correct":false},{"text":"Festsetzen der Ladung auf der Ladefläche durch Gewichtskraft","correct":false}]},{"id":"182","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie können Sie eine Ladung, die Staub entwickeln kann, ordnungsgemäß sichern?","answers":[{"text":"Durch Befördern auf einer offenen Ladefläche","correct":false},{"text":"Durch Befördern in einem geschlossenen Behälter oder in einem geschlossenen Aufbau","correct":true},{"text":"Mit einem Gitternetz","correct":false},{"text":"Durch anfeuchten mit Wasser","correct":false}]},{"id":"183","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was ist \"Kraftschluss\" bei der Ladungssicherung?","answers":[{"text":"Lückenloses Verladen der Last","correct":false},{"text":"Festsetzen der Ladung an Aufbauteilen durch Direktzurren","correct":false},{"text":"Festsetzen der Ladung auf der Ladefläche durch Niederzurren","correct":true},{"text":"Verladen der Last mit Freilassen von Zwischenräumen","correct":false}]},{"id":"184","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was bedeutet die Angabe \"STF\" auf dem Herstellerschild eines Zurrgurtes?","answers":[{"text":"Die Vorspannkraft, die im Gurt für das Niederzurren genutzt werden kann","correct":true},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei geradem Zug","correct":false},{"text":"Die Handkraft des Anwenders","correct":false},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei einem Zurrwinkel von 45 Grad","correct":false}]},{"id":"185","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was bedeutet die Angabe \"LC\" auf dem Herstellerschild eines Zurrgurtes?","answers":[{"text":"Die Vorspannkraft, die im Gurt für das Niederzurren genutzt werden kann","correct":false},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei geradem Zug","correct":true},{"text":"Die Handkraft des Anwenders","correct":false},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei einem Zurrwinkel von 45 Grad","correct":false}]},{"id":"186","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Bei den Angaben auf dem Kennzeichnungsanhänger einer Zurrkette ist keine Angabe der  Spannkraft STF vorhanden. Was bedeutet das für Sie?","answers":[{"text":"Die Zurrkette darf nur für das Niederzurren verwendet werden","correct":false},{"text":"Die Zurrkette darf nicht für das Niederzurren verwendet werden","correct":true},{"text":"Die Zurrkette darf für jede Art der Ladungssicherung verwendet werden","correct":false},{"text":"Die Zurrkette darf nur für das Direktzurren verwendet werden","correct":false}]},{"id":"187","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Darf bei Rundholztransporten das Holz quer zur Fahrtrichtung geladen werden?","answers":[{"text":"Ja, immer","correct":false},{"text":"Grundsätzlich nein! Außer es erfolgt die Landungssicherung mit einem geeigneten,  engmaschigen Netz","correct":true},{"text":"Nur dann, wenn der Transport im Rahmen einer Wirtschaftsfuhre erfolgt","correct":false},{"text":"Nur dann, wenn der Transport im Rahmen der Land- und Forstwirtschaft erfolgt","correct":false}]},{"id":"188","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie viel muss das Gewicht auf der bzw. den Antriebsachsen Ihres LKW´s betragen?","answers":[{"text":"Mindestens 25 % des Eigengewichts","correct":false},{"text":"Mindestens 25 % des höchsten zulässigen Gesamtgewichts","correct":false},{"text":"Mindestens 25 % des tatsächlichen Gesamtgewichts","correct":true},{"text":"Höchstens 25 % des höchsten zulässigen Gesamtgewichts","correct":false}]},{"id":"189","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wo greift die Gewichtskraft an der Ladung an?","answers":[{"text":"Im Schwerpunkt","correct":true},{"text":"Gleichmäßig entlang ihrer Auflagefläche","correct":false},{"text":"Am höchsten Punkt","correct":false},{"text":"Am niedrigsten Punkt","correct":false}]},{"id":"190","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Wie kann Ladung kraftschlüssig gesichert werden?","answers":[{"text":"Durch die Verwendung von Spannlatten","correct":false},{"text":"Durch Diagonalzurren","correct":false},{"text":"Durch Anstellen der Ladung an die Stirn- bzw. Seitenwand","correct":false},{"text":"Durch Niederzurren","correct":true}]},{"id":"191","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Eine Ladung soll durch Niederzurren gesichert werden. Welche Angabe am Etikett des  Zurrgurtes ist bei der Berechnung der Anzahl der erforderlichen Zurrgurte zu berücksichtigen?","answers":[{"text":"Die maximale Vorspannkraft STF","correct":true},{"text":"Die maximale Zurrkraft LC","correct":false},{"text":"Die maximale Handkraft SHF","correct":false},{"text":"Die maximale Dehnung des Gurtbandes","correct":false}]},{"id":"192","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Eine Ladung soll durch Direktzurren gesichert werden. Welche Angabe am Etikett des  Zurrgurtes ist bei der Berechnung der Anzahl der erforderlichen Zurrgurte zu berücksichtigen?","answers":[{"text":"Der Zurrwinkel \"Alpha\"","correct":false},{"text":"Die maximale Vorspannkraft STF","correct":false},{"text":"Die maximale Handkraft SHF","correct":false},{"text":"Die maximale Zurrkraft LC","correct":true}]},{"id":"193","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welchen Einfluss hat der Zurrwinkel \"Alpha\" auf die wirksame Vorspannkraft beim  Niederzurren?","answers":[{"text":"Je flacher der Zurrwinkel Alpha ist, um so kleiner ist die wirksame Vorspannkraft","correct":true},{"text":"Je flacher der Zurrwinkel Alpha ist, um so größer ist die wirksame Vorspannkraft","correct":false},{"text":"Der Zurrwinkel Alpha hat keinen Einfluss auf die wirksame Vorspannkraft","correct":false},{"text":"Je flacher der Zurrwinkel Alpha ist, um so kleiner ist die wirksame maximale Handkraft SHF","correct":false}]},{"id":"194","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Sie transportieren Rundholz. Wie bzw. womit müssen Sie Ihre Ladung sichern?","answers":[{"text":"Mit Staupolstern und Euro-Paletten","correct":false},{"text":"In Fahrtrichtung mit Rungen und zur Seite mit rutschhemmenden Unterlagen","correct":false},{"text":"Durch Diagonalzurren mit Zurrseilen und Spannlatten","correct":false},{"text":"Durch Niederzurren mit Spanngurten, Zurrketten oder Zurrseilen (die Verwendung von  Rungen ist ratsam)","correct":true}]},{"id":"195","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was bedeutet die Angabe STF = 300 daN auf dem Etikett eines Zurrgurtes?","answers":[{"text":"Die maximale Vorspannkraft der Ratsche beträgt 300 daN","correct":true},{"text":"Die maximale Kraft im Gurtband beträgt 300 daN","correct":false},{"text":"Der Ratschenhebel darf maximal mit 300 kg betätigt werden","correct":false},{"text":"Dass nur Ladegüter bis zu einem Gewicht von 300 kg gesichert werden dürfen","correct":false}]},{"id":"197","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Mit welcher Buchstabenfolge wird die maximale Vorspannkraft der Ratsche auf dem Etikett  eines Zurrgurtes gekennzeichnet?","answers":[{"text":"FMAX","correct":false},{"text":"LC","correct":false},{"text":"SHF","correct":false},{"text":"STF","correct":true}]},{"id":"198","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Sie wollen einen LKW mit einem höchsten zulässigen Gesamtgewicht von 10 t beladen.  Dieser LKW hat Zurrpunkte, die nach EN 12640 zertifiziert sind. Welche höchste zulässige  Belastung der Zurrpunkte ist dann garantiert?","answers":[{"text":"Höchstens 500 daN","correct":false},{"text":"1.000 daN","correct":true},{"text":"Auf jeden Fall zumindest 2.000 daN","correct":false},{"text":"Auf jeden Fall zumindest 3.500 daN","correct":false}]},{"id":"199","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Sie wollen einen LKW mit einem höchsten zulässigen Gesamtgewicht von 6 t beladen. Dieser  LKW hat Zurrpunkte, die nach EN 12640 zertifiziert sind. Welche höchste zulässige Belastung  der Zurrpunkte ist dann garantiert?","answers":[{"text":"800 daN","correct":true},{"text":"1.000 daN","correct":false},{"text":"Auf jeden Fall zumindest 2.000 daN","correct":false},{"text":"Auf jeden Fall zumindest 3.500 daN","correct":false}]},{"id":"200","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welche Ladungen sind mit einer Plane abzudecken?","answers":[{"text":"Schüttgut, wie z.B. Sand oder Erdreich, wenn es abgeweht werden kann","correct":true},{"text":"Stückgut, das in Kofferaufbauten befördert wird","correct":false},{"text":"Rundholz","correct":false},{"text":"Betonteile","correct":false}]},{"id":"201","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Was bedeutet die Angabe \"SHF\" auf dem Herstellerschild eines Zurrgurtes?","answers":[{"text":"Die Vorspannkraft, die im Gurt für das Niederzurren genutzt werden kann","correct":false},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei geradem Zug","correct":false},{"text":"Die Handkraft des Anwenders","correct":true},{"text":"Die maximale Belastbarkeit des Zurrgurtes bei einem Zurrwinkel von 45 Grad","correct":false}]},{"id":"202","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Sie wollen einen LKW mit einem höchsten zulässigen Gesamtgewicht von 18 t beladen.  Dieser LKW hat Zurrpunkte, die nach EN 12640 zertifiziert sind. Welche höchste zulässige  Belastung der Zurrpunkte ist dann garantiert?","answers":[{"text":"800 daN","correct":false},{"text":"1.000 daN","correct":false},{"text":"Auf jeden Fall zumindest 2.000 daN","correct":true},{"text":"Auf jeden Fall zumindest 3.500 daN","correct":false}]},{"id":"203","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welche Kräfte können während der Fahrt auf die Ladung nach vorne wirken?","answers":[{"text":"Die Beschleunigungskraft beim Bremsen und eine zusätzliche Gewichtskraft beim  Bergabfahren","correct":true},{"text":"Die Fliehkraft beim Kurvenfahren","correct":false},{"text":"Die Beschleunigungskraft beim Beschleunigen","correct":false},{"text":"Die Fliehkraft bei schnellen Ausweichmanövern","correct":false}]},{"id":"204","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welche Kräfte können während der Fahrt auf die Ladung seitlich wirken?","answers":[{"text":"Die Bremskraft beim Bremsen","correct":false},{"text":"Eine zusätzliche Gewichtskraft beim Bergabfahren","correct":false},{"text":"Die Beschleunigungskraft beim Beschleunigen","correct":false},{"text":"Die Fliehkraft beim Kurvenfahren und schnellen Ausweichmanövern","correct":true}]},{"id":"205","ziffer":"1f","klasse":"C1, C1E, C, CE","question":"Welche Kräfte können während der Fahrt auf die Ladung nach hinten wirken?","answers":[{"text":"Die Bremskraft beim Bremsen","correct":false},{"text":"Eine zusätzliche Kraft beim Bergauffahren und die Beschleunigungskraft beim  Beschleunigen","correct":true},{"text":"Die Fliehkraft beim Kurvenfahren","correct":false},{"text":"Die Fliehkraft bei schnellen Ausweichmanövern","correct":false}]},{"id":"221","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus im Linienverkehr. Was beachten Sie, wenn Sie im Ortsgebiet von  einer Haltestelle abfahren wollen?","answers":[{"text":"Ich überzeuge mich durch einen Blick in den Rückspiegel, dass ich ohne Gefährdung  nachkommender Verkehrsteilnehmer abfahren kann","correct":true},{"text":"Ich überzeuge mich durch einen Blick in den Rückspiegel, dass ich ohne jede Behinderung  nachkommender Verkehrsteilnehmer abfahren kann","correct":false},{"text":"Ich darf erst abfahren, wenn alle Fahrgäste sitzen","correct":false},{"text":"Ich darf erst abfahren, wenn im Rückspiegel keine Fahrzeuge zu sehen sind","correct":false}]},{"id":"222","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus im Linienverkehr und wollen im Ortsgebiet von einer Haltstelle  abfahren. Dabei dürfen Sie nachkommende Verkehrsteilnehmer nicht gefährden. Wann liegt  eine Gefährdung Nachkommender vor?","answers":[{"text":"Wenn Nachkommende nicht mehr gefahrlos ausweichen oder anhalten können","correct":true},{"text":"Wenn Nachkommende zum Anhalten gezwungen werden","correct":false},{"text":"Wenn Nachkommende zum Abbremsen gezwungen werden","correct":false},{"text":"Wenn Nachkommende zum Blinken gezwungen werden","correct":false}]},{"id":"223","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Was haben Sie zu beachten, wenn Sie an der Haltestelle Kinder aus Ihrem Schulbus  aussteigen lassen?","answers":[{"text":"Ich muss die Alarmblinkanlage und zusätzliche Warnleuchten, welche in der Heckscheibe  oder am Dach des Busses montiert sind, einschalten","correct":true},{"text":"Ich muss Warnzeichen mit der Hupe abgeben","correct":false},{"text":"Ich muss den rechten Blinker einschalten","correct":false},{"text":"Ich muss den linken Blinker einschalten","correct":false}]},{"id":"224","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Welche Vorteile bringt eine sorgfältige Routenplanung?","answers":[{"text":"Es ergibt sich auf jeden Fall eine kürzere Fahrzeit","correct":false},{"text":"Lenkpausen können vorab so geplant werden, dass sie zum optimalen Zeitpunkt an einem  geeigneten Ort gehalten werden können. Auch können Stoßzeiten und stauanfällige  Straßen vermieden werden","correct":true},{"text":"Es ergibt sich auf jeden Fall eine längere Fahrzeit","correct":false},{"text":"Keine besonderen","correct":false}]},{"id":"225","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Welchen Sicherheitsabstand haben Sie als Lenker eines Omnibusses auf Freilandstraßen  mindestens einzuhalten, wenn Sie hinter einem Fahrzeug mit größeren Längsabmessungen  (z.B. LKW oder Omnibus) fahren?","answers":[{"text":"50 m","correct":true},{"text":"200 m","correct":false},{"text":"1 Sekunde - Abstand","correct":false},{"text":"25 m","correct":false}]},{"id":"226","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Wie viele Personen dürfen Sie in einem Omnibus befördern, wenn Sie im  Gelegenheitsverkehr fahren?","answers":[{"text":"In jedem Fall höchstens 62 Personen","correct":false},{"text":"So viel wie Sitzplätze in der Zulassungsbescheinigung eingetragen sind","correct":true},{"text":"In jedem Fall höchstens 48 Personen","correct":false},{"text":"So viel wie Sitze mit Sicherheitsgurt im Fahrgastraum vorhanden sind","correct":false}]},{"id":"227","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Ihr Omnibus ist mit Stehplätzen ausgerüstet. Dürfen dort Fahrgäste befördert werden?","answers":[{"text":"Ja, wenn im Linienverkehr gefahren wird","correct":true},{"text":"Ja, aber nur dann, wenn alle Sitzplätze besetzt sind","correct":false},{"text":"Nein, nie","correct":false},{"text":"Ja, aber nur dann, wenn das Fahrtziel nicht weiter als 25 km vom Ausgangspunkt der Fahrt  entfernt ist (Kurzstreckenfahrt)","correct":false}]},{"id":"228","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus im Gelegenheitsverkehr. Was müssen Sie beachten, wenn Sie  Kinder oder Jugendliche im Alter zwischen 3 und 14 Jahren befördern?","answers":[{"text":"Die Kinder oder Jugendlichen dürfen nur in einem ihrem Alter entsprechenden Kindersitz  befördert werden","correct":false},{"text":"Die Kinder oder Jugendlichen dürfen nur in einem ihrem Körpergewicht entsprechenden  Kindersitz befördert werden","correct":false},{"text":"Die Kinder oder Jugendlichen müssen die Sicherheitsgurte verwenden, falls solche  vorhanden sind","correct":true},{"text":"Die Kinder oder Jugendlichen müssen die Sicherheitsgurte nur dann verwenden, wenn sie  in der ersten Sitzreihe befördert werden","correct":false}]},{"id":"229","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Sie wollen mit Ihrem Omnibus im Rahmen einer Ausflugsfahrt nach einer zweistündigen  Mittagspause weiterfahren. Was haben Sie vor der Abfahrt zu tun?","answers":[{"text":"Ich muss eine Bremsprobe durchführen","correct":true},{"text":"Ich muss am digitalen Kontrollgerät auf jeden Fall einen Nachtrag der Tätigkeiten  durchführen","correct":false},{"text":"Ich muss am analogen Kontrollgerät auf jeden Fall einen Nachtrag der Tätigkeiten  durchführen, wenn die Tachoscheibe während der Fahrtpause im Kontrollgerät war","correct":false},{"text":"Ich muss überprüfen, ob noch alle Verbandpäckchen vorhanden sind","correct":false}]},{"id":"230","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Sie wollen mit Ihrem Omnibus im Rahmen einer Ausflugsfahrt nach einer zweistündigen  Mittagspause weiterfahren. Wie führen Sie die vorgeschriebene Bremsprobe durch?","answers":[{"text":"Ich achte vor der Abfahrt am Manometer der Betriebsbremsanlage darauf, ob während der  Fahrtpause ein sichtbarer Druckabfall eingetreten ist und mache bei der Abfahrt eine  gefühlvolle Betriebsbremsung","correct":true},{"text":"Ich beschleunige auf etwa 50 km/h und mache eine Vollbremsung. Der Omnibus muss  innerhalb von 10 m zum Stillstand kommen","correct":false},{"text":"Ich beschleunige auf etwa 20 km/h und mache eine Vollbremsung. Der Omnibus muss  innerhalb von 3 m zum Stillstand kommen","correct":false},{"text":"Ich beschleunige auf etwa 10 km/h und mache eine Vollbremsung. Der Omnibus muss  innerhalb von 5 m zum Stillstand kommen","correct":false}]},{"id":"231","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Sie sollen mit Ihrem Omnibus Angehörige eines Fußballvereines zu einem Fußballspiel  befördern. Beim Einsteigen der Fahrgäste bemerken Sie, dass einzelne Fahrgäste  pyrotechnische Gegenstände mit sich führen. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich fordere diese Fahrgäste höflich auf, diese Gegenstände gesichert im Gepäckraum des  Omnibusses unterzubringen","correct":true},{"text":"Ich fordere diese Fahrgäste höflich auf, diese Gegenstände in den Ablagen über den Sitzen  des Omnibusses unterzubringen","correct":false},{"text":"Ich verlange von diesen Fahrgästen, sich mit diesen Gegenständen sofort aus dem Omnibus  zu entfernen","correct":false},{"text":"Ich ersuche diese Fahrgäste höflich, sich mit diesen Gegenständen sofort aus dem Omnibus  zu entfernen","correct":false}]},{"id":"232","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Ein Fahrgast möchte bei der Fahrt im Omnibus unbedingt seinen Hund ohne Maulkorb  lassen. Andere Fahrgäste beschweren sich darüber. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich weise den Fahrgast höflich darauf hin, dass Hunde ohne Maulkorb (ausgenommen  Assistenzhunde) von der Fahrt ausgeschlossen werden können, und zeige dem Fahrgast  den entsprechenden Passus in den Betriebs- und Beförderungsbedingungen der  Betriebsordnung","correct":true},{"text":"Ich weise den Fahrgast darauf hin, dass er den Hund ohne Maulkorb nur mitführen darf,  wenn er den Hund in der letzten Sitzreihe anleint","correct":false},{"text":"Ich weise den Fahrgast höflich darauf hin, dass er den Hund ohne Maulkorb nur mitführen  darf, wenn er mit dem Hund alleine in einer Sitzreihe sitzt","correct":false},{"text":"Ich weise den Fahrgast höflich darauf hin, dass er den Hund ohne Maulkorb nur mitführen  darf, wenn der Hund am Boden auf einer eigenen Decke liegt","correct":false}]},{"id":"233","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Ein Fahrgast möchte bei der Fahrt im Omnibus unbedingt seinen Hund ohne Maulkorb  lassen. Wie können Sie dem Fahrgast den entsprechenden Passus in den Betriebs- und  Beförderungsbedingungen der Betriebsordnung zeigen, der das verbietet?","answers":[{"text":"Ich bin verpflichtet, einen Abdruck dieser Verordnung mitzuführen und auf Verlangen  Fahrgästen vorzulegen","correct":true},{"text":"Es genügt, wenn der Fahrgast die Verordnung am Firmensitz einsehen kann","correct":false},{"text":"Die Verordnung muss bei jeder öffentlichen Haltestelle per WLAN heruntergeladen werden  können","correct":false},{"text":"Die Verordnung muss bei jeder öffentlichen Haltestelle als Ausdruck angebracht sein","correct":false}]},{"id":"234","ziffer":"1g","klasse":"D1, D1E, D, DE","question":"Welche Einrichtungen eines Omnibusses müssen besonders sauber gehalten werden, um die  Übertragung von Krankheitserregern zwischen den Fahrgästen möglichst zu verhindern?","answers":[{"text":"Die Griffstangen bei den Ein- und Ausstiegen sowie die Bord-Toilette","correct":true},{"text":"Die Abdeckungen des Gepäckraumes","correct":false},{"text":"Das Lenkrad","correct":false},{"text":"Der Bodenbelag im Bereich der Ein- und Ausstiege","correct":false}]},{"id":"251","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Warum muss die Ladung in einem Omnibus gesichert werden?","answers":[{"text":"Damit Fahrer, Beifahrer, Fahrgäste und andere Verkehrsteilnehmer nicht gefährdet werden  und die Ladung und der Omnibus nicht beschädigt werden","correct":true},{"text":"Damit die Ladung bei einem Unfall auf jeden Fall im Omnibus bleibt","correct":false},{"text":"Damit Fahrgäste beim Aussteigen ihr Gepäck möglichst rasch finden können","correct":false},{"text":"Damit Lenkerinnen und Lenker beim Aussteigen das Gepäck der jeweiligen Fahrgäste  möglichst rasch finden können","correct":false}]},{"id":"252","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"In welchem Fall muss die Ladung durch die Ladungssicherung sicher im Gepäckraum bzw.  Gepäckfächern Ihres Omnibusses gehalten werden?","answers":[{"text":"Bei scharfen Ausweichmanövern sowie Notbremsungen","correct":true},{"text":"Beim Abkommen von der Fahrbahn","correct":false},{"text":"Bei Auffahrunfällen","correct":false},{"text":"Beim Entnehmen durch Fahrgäste am Ende einer Fahrt","correct":false}]},{"id":"253","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Wie groß ist der Beschleunigungsbeiwert, der bei der Ladungssicherung im Straßenverkehr  nach vorne mindestens zu berücksichtigen ist?","answers":[{"text":"0,80","correct":true},{"text":"0,50","correct":false},{"text":"1,00","correct":false},{"text":"0,25","correct":false}]},{"id":"254","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Wie groß ist der Beschleunigungsbeiwert, der bei der Ladungssicherung im Straßenverkehr  zur Seite mindestens zu berücksichtigen ist?","answers":[{"text":"0,80","correct":false},{"text":"0,50","correct":true},{"text":"1,00","correct":false},{"text":"0,25","correct":false}]},{"id":"255","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Wie groß ist der Beschleunigungsbeiwert, der bei der Ladungssicherung im Straßenverkehr  nach hinten mindestens zu berücksichtigen ist?","answers":[{"text":"0,80","correct":false},{"text":"0,50","correct":true},{"text":"1,00","correct":false},{"text":"0,25","correct":false}]},{"id":"256","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Welche Kräfte können während der Fahrt auf die Ladung nach vorne wirken?","answers":[{"text":"Eine zusätzliche Gewichtskraft beim Bergabfahren und die Beschleunigungskraft beim  Bremsen","correct":true},{"text":"Die Fliehkraft beim Kurvenfahren","correct":false},{"text":"Die Beschleunigungskraft beim Beschleunigen","correct":false},{"text":"Die Fliehkraft bei schnellen Ausweichmanövern","correct":false}]},{"id":"257","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Welche Kräfte können während der Fahrt auf die Ladung seitlich wirken?","answers":[{"text":"Die Bremskraft beim Bremsen","correct":false},{"text":"Eine zusätzliche Gewichtskraft beim Bergabfahren","correct":false},{"text":"Die Beschleunigungskraft beim Beschleunigen","correct":false},{"text":"Die Fliehkraft beim Kurvenfahren und schnellen Ausweichmanövern","correct":true}]},{"id":"258","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Welche Kräfte können während der Fahrt auf die Ladung nach hinten wirken?","answers":[{"text":"Die Bremskraft beim Bremsen","correct":false},{"text":"Eine zusätzliche Kraft beim Bergauffahren und die Beschleunigungskraft beim  Beschleunigen","correct":true},{"text":"Die Fliehkraft beim Kurvenfahren","correct":false},{"text":"Die Fliehkraft bei schnellen Ausweichmanövern","correct":false}]},{"id":"260","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Sie sollen die Koffer einer Reisegruppe in Ihrem Omnibus verstauen. Was beachten Sie dabei?","answers":[{"text":"Ich verstaue die Koffer möglichst lückenlos im Gepäckraum des Omnibusses und achte  darauf, dass die Koffer möglichst formschlüssig zur Stirnwand, den Teilungsstreben und den  Seitenwänden des Gepäckraumes verladen sind","correct":true},{"text":"Wenn der Gepäckraum voll geladen ist, ersuche ich die Fahrgäste, ihre Koffer auf den Schoß  zu nehmen","correct":false},{"text":"Wenn der Gepäckraum voll geladen ist, ersuche ich die Fahrgäste, die Koffer im Mittelgang  des Fahrgastraumes aufzustellen","correct":false},{"text":"Wenn der Gepäckraum voll geladen ist, ersuche ich die Fahrgäste, ihre Koffer auf freien  Sitzen möglichst hoch gestapelt unterzubringen","correct":false}]},{"id":"261","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Sie bemerken vor der Abfahrt, dass Fahrgäste im Mittelgang Ihres Omnibusses  Getränkekisten aufgestellt haben, um während der Fahrt Getränke zu konsumieren. Wie  sollten Sie sich verhalten?","answers":[{"text":"Ich sorge dafür, dass die Getränkekisten im Mittelgang mit Zurrgurten gesichert werden","correct":false},{"text":"Ich sorge dafür, dass die Getränkekisten im Mittelgang mit rutschhemmenden Unterlagen  gesichert werden","correct":false},{"text":"Ich sorge dafür, dass die Getränkekisten im Gepäckraum des Omnibusses gesichert  verladen werden. Für den Transport der Getränkegebinde biete ich die Benutzung der  Kühlboxen im Fahrgastraum an","correct":true},{"text":"Ich bestimme einen Fahrgast, der jeweils eine Kiste während der Fahrt festhalten muss","correct":false}]},{"id":"262","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Warum dürfen während der Fahrt im Mittelgang Ihres Omnibusses keine Gegenstände wie  Getränkekisten, Koffer und dergleichen stehen?","answers":[{"text":"Weil der Mittelgang im Gefahrenfall als Fluchtweg dient","correct":true},{"text":"Weil eine ausreichende Ladungssicherung im Mittelgang unmöglich herzustellen ist","correct":false},{"text":"Weil der Boden im Mittelgang keine ausreichende Festigkeit aufweist","correct":false},{"text":"Weil der Boden im Mittelgang eine zu hohe Gleitzahl aufweist","correct":false}]},{"id":"263","ziffer":"1h","klasse":"D1, D1E, D, DE","question":"Die Gepäckablagen über den Sitzen im Fahrgastraum Ihres Omnibusses weisen  Verschlussklappen auf. Was beachten Sie dabei?","answers":[{"text":"Ich überzeuge mich vor der Abfahrt, dass alle Verschlussklappen geschlossen und verriegelt  sind","correct":true},{"text":"Die Verschlussklappen können während der Fahrt geöffnet bleiben, wenn die Fahrgäste das  wünschen","correct":false},{"text":"Einzelne Verschlussklappen können während der Fahrt geöffnet bleiben, wenn das in der  Gepäckablage verstaute Handgepäck zu viel Platz benötigt","correct":false},{"text":"Die Verschlussklappen können während der Fahrt geöffnet bleiben, wenn die Fahrt nicht  nur innerhalb eines Ortsgebietes durchgeführt wird","correct":false}]},{"id":"281","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Daten werden auf der Fahrerkarte gespeichert?","answers":[{"text":"Daten zu den gefahrenen Fahrzeugen sowie Fahreraktivitäten","correct":true},{"text":"Daten zum Kraftstoffverbrauch","correct":false},{"text":"Daten zur Motordrehzahl","correct":false},{"text":"Daten zur Ausnutzung der Motorleistung","correct":false}]},{"id":"282","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"In welchen Fällen müssen Sie einen Ausdruck aus dem digitalen Kontrollgerät anfertigen?","answers":[{"text":"Immer nach einem Verkehrsunfall","correct":false},{"text":"Auf Verlangen eines Kontrollorgans sowie bei einem Defekt der Fahrerkarte","correct":true},{"text":"Immer nachdem eine Fahrt mit dem \"Out\"-Modus erfolgte","correct":false},{"text":"Immer nachdem eine Fahrt mit einem Fährschiff erfolgte","correct":false}]},{"id":"283","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"In welchem Zeitraum müssen die Daten von der Fahrerkarte ausgelesen und im  Unternehmen gespeichert werden?","answers":[{"text":"Auf jeden Fall am Ende der täglichen Ruhezeit","correct":false},{"text":"Spätestens nach 28 Tagen, an denen Tätigkeiten aufgezeichnet wurden","correct":false},{"text":"Spätestens nach 90 Tagen, an denen Tätigkeiten aufgezeichnet wurden","correct":false},{"text":"Auf jeden Fall spätestens nach 56 Kalendertagen","correct":true}]},{"id":"284","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"In welcher Weise können Sie nach einem Verkehrsunfall die im digitalen Kontrollgerät  gesicherten Daten zur Beweissicherung heranziehen?","answers":[{"text":"Durch Eingabe des Unfallzeitpunkts in das Menü des Kontrollgerätes","correct":false},{"text":"Durch Download von der Fahrerkarte innerhalb der nächsten 24 Lenkstunden","correct":false},{"text":"Durch einen handschriftlichen Vermerk auf einem Ausdruck","correct":false},{"text":"Durch Download aus dem Massenspeicher innerhalb der nächsten 24 Lenkstunden","correct":true}]},{"id":"285","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang werden die detaillierten Geschwindigkeitsdaten im Massenspeicher des  Kontrollgerätes gespeichert?","answers":[{"text":"24 Lenkstunden","correct":true},{"text":"28 Tage","correct":false},{"text":"90 Tage","correct":false},{"text":"1 Jahr","correct":false}]},{"id":"286","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie nehmen ein Fahrzeug mit digitalem Kontrollgerät in Betrieb. Dabei wird die Uhrzeit mit  dem Zusatz \"UTC\" angezeigt. Was bedeutet \"UTC\"?","answers":[{"text":"Es wird in einer ortsunabhängigen Zeitzone (\"Weltzeit\") aufgezeichnet","correct":true},{"text":"Das Kontrollgerät läuft in einem unkoordinierten Modus","correct":false},{"text":"Das Kontrollgerät muss sofort neu kalibriert werden","correct":false},{"text":"Die Daten müssen sofort aus dem Datenspeicher des Kontrollgerätes ausgelesen werden","correct":false}]},{"id":"287","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Ortszeit in Österreich entspricht an einem Dezembertag 9:30 Uhr UTC-Zeit?","answers":[{"text":"10:00 Uhr","correct":false},{"text":"11:30 Uhr","correct":false},{"text":"8:30 Uhr","correct":false},{"text":"10:30 Uhr","correct":true}]},{"id":"288","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang ist eine Fahrerkarte ab dem Ausstellungszeitpunkt gültig?","answers":[{"text":"5 Jahre","correct":true},{"text":"1 Jahr","correct":false},{"text":"10 Jahre","correct":false},{"text":"15 Jahre","correct":false}]},{"id":"289","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie wollen ein Fahrzeug mit digitalem Kontrollgerät lenken. Wie sollten Sie sich vor  Fahrtbeginn verhalten, wenn Ihre Fahrerkarte defekt geworden oder verloren gegangen ist?","answers":[{"text":"Ich fertige einen Ausdruck aus dem Kontrollgerät an. Dieser Ausdruck ist mit meinem  Namen und der Nummer des Führerscheins oder Nummer der Fahrerkarte sowie meiner  Unterschrift zu versehen. Die jeweils anfallenden Tätigkeiten, die keine Lenktätigkeiten  sind, vermerke ich","correct":true},{"text":"Ich führe handschriftliche Aufzeichnungen über die Dauer der Lenkzeiten","correct":false},{"text":"Ich fahre als Ersatz mit der gesteckten Unternehmenskarte","correct":false},{"text":"Ich fahre als Ersatz mit der gesteckten Fahrerkarte eines Kollegen, der sich gerade im  Urlaub befindet","correct":false}]},{"id":"290","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie wollen ein Fahrzeug mit digitalem Kontrollgerät lenken. Ihre Fahrerkarte ist defekt  geworden oder verloren gegangen. Wie lang dürfen Sie ohne Karte fahren?","answers":[{"text":"Höchstens 15 Tage","correct":true},{"text":"Höchstens 28 Tage","correct":false},{"text":"Höchstens 7 Tage","correct":false},{"text":"Gar nicht","correct":false}]},{"id":"291","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie sind im \"Mehrfahrerbetrieb\" als Beifahrer im Fahrzeug unterwegs. In welchem  Kartenschacht des digitalen Kontrollgerätes muss sich Ihre Fahrerkarte befinden?","answers":[{"text":"In keinem, da keine Fahrerkarte gesteckt werden muss, wenn ich nicht selbst lenke","correct":false},{"text":"Im Kartenschacht 1","correct":false},{"text":"Im Kartenschacht 1 oder 2","correct":false},{"text":"Im Kartenschacht 2","correct":true}]},{"id":"292","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was bedeutet der Begriff \"Tägliche Ruhezeit\"?","answers":[{"text":"Das ist der tägliche Zeitraum, in dem eine Lenkerin oder ein Lenker frei über ihre bzw. seine  Zeit verfügen kann und der eine „regelmäßige tägliche Ruhezeit“ oder eine „reduzierte  tägliche Ruhezeit“ umfasst","correct":true},{"text":"Das ist die Pause, die nach 6 Stunden ununterbrochener Arbeitszeit zu halten ist","correct":false},{"text":"Das ist die Lenkpause, die nach 4,5 Stunden Lenkzeit gesetzlich zu halten ist","correct":false},{"text":"Das ist die Pause, die nach 12 Stunden ununterbrochener Arbeitszeit zu halten ist","correct":false}]},{"id":"293","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Die österreichische Ortszeit beträgt 11:00 Uhr. Welche UTC-Zeit entspricht an einem  Sommertag der österreichischen Ortszeit?","answers":[{"text":"13:00 Uhr","correct":false},{"text":"10:00 Uhr","correct":false},{"text":"12:00 Uhr","correct":false},{"text":"9:00 Uhr","correct":true}]},{"id":"294","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie lenken ein Fahrzeug mit digitalem Kontrollgerät. Welche Einstellungen müssen Sie  vornehmen, wenn Sie einen Grenzübertritt durchführen?","answers":[{"text":"Ich muss das Ländersymbol umstellen, wenn das Kontrollgerät diese Umstellung nicht  automatisch vornimmt","correct":true},{"text":"Ich muss die UTC-Zeit umstellen","correct":false},{"text":"Ich muss das Tätigkeitssymbol umstellen","correct":false},{"text":"Ich muss das Kontrollgerät in den \"Out\"-Modus umstellen","correct":false}]},{"id":"295","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Tätigkeiten fallen unter den Begriff \"Bereitschaftszeit\"?","answers":[{"text":"Wenn ich auf Anweisungen für die Aufnahme oder Wiederaufnahme der Weiterfahrt oder  zur Ausführung anderer Arbeiten warte. Dabei darf ich den Arbeitsplatz verlassen. Diese  Zeiten und ihre voraussichtliche Dauer müssen mir vorab bekannt sein","correct":true},{"text":"Nur solche, bei denen ich das Fahrzeug belade","correct":false},{"text":"Wenn ich am Fahrzeug einen Radwechsel vornehme","correct":false},{"text":"Nur solche, bei denen ich das Fahrzeug entlade","correct":false}]},{"id":"296","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was müssen Sie tun, wenn Sie nach einer täglichen Ruhezeit Ihre Fahrerkarte wieder in das  digitale Kontrollgerät stecken?","answers":[{"text":"Ich trage die Aktivitäten seit der letzten Entnahme der Karte im Gerät nach","correct":true},{"text":"Ich stelle die Ortszeit auf die aktuelle UTC-Zeit um","correct":false},{"text":"Ich drucke einen Ereignisausdruck aus und trage meine Ruhezeit handschriftlich darauf ein","correct":false},{"text":"Ich muss das Ländersymbol überprüfen","correct":false}]},{"id":"297","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Tätigkeiten fallen unter den Begriff \"Andere Arbeiten\" (Beispiele)?","answers":[{"text":"Wenn ich für das Lenken eines Fahrzeuges zur Verfügung stehe, dieses aber nicht selbst  lenke und auch sonst keine Arbeiten verrichte","correct":false},{"text":"Wenn ich bei Mehrfahrerbetrieb im fahrenden Fahrzeug als 2. Person mitfahre","correct":false},{"text":"Wenn ich am Fahrzeug eine Abfahrtskontrolle durchführe oder es be- oder entlade oder  beim Be- oder Entladen Wartezeiten habe, deren Ende nicht vorab bekannt ist oder  Frachtpapiere ausfülle","correct":true},{"text":"Wenn ich das Fahrzeug als Lenkerin oder Lenker zu einem anderen Betriebsstandort  überstelle","correct":false}]},{"id":"298","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie machen im Mehrfahrerbetrieb einen Fahrerwechsel. Wie müssen Sie sich in Bezug auf das  digitale Kontrollgerät verhalten?","answers":[{"text":"Ich wechsle nur den Sitzplatz, die Fahrerkarten werden nicht umgesteckt","correct":false},{"text":"Die Fahrerkarte des jeweiligen Lenkers muss im Kartenschacht 1 stecken, jene des  Beifahrers im Kartenschacht 2","correct":true},{"text":"Die Fahrerkarte des Beifahrers wird nicht gesteckt, sondern nur mitgeführt","correct":false},{"text":"Die Fahrerkarte des jeweiligen Lenkers muss im Kartenschacht 2 stecken, jene des  Beifahrers im Kartenschacht 1","correct":false}]},{"id":"299","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie verhalten Sie sich im kombinierten Verkehr, wenn Sie Teile der Fahrt auf einer Fähre  oder auf einem Zug verbringen?","answers":[{"text":"Ich stelle das digitale Kontrollgerät auf die Menüeinstellung \"Zug-Fähre\"","correct":true},{"text":"Ich entnehme meine Fahrerkarte und stelle meine Aktivität auf Lenkzeit","correct":false},{"text":"Ich stecke meine Fahrerkarte in den Kartenschacht 2 und stelle die Aktivität auf Arbeitszeit","correct":false},{"text":"Ich stelle das digitale Kontrollgerät auf die Menüeinstellung \"OUT\"","correct":false}]},{"id":"300","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was bedeutet der Begriff \"Wochenlenkzeit\"?","answers":[{"text":"Das ist die Gesamtlenkzeit innerhalb einer Woche. Die Woche ist der Zeitraum von Montag  00:00 Uhr bis Sonntag 24:00 Uhr","correct":true},{"text":"Das ist die Gesamtlenkzeit in einem beliebigen Zeitraum von insgesamt 168 Stunden","correct":false},{"text":"Das ist die gesamte Anwesenheitszeit im Fahrerhaus innerhalb einer Woche","correct":false},{"text":"Das ist die gesamte Anwesenheitszeit in der Firma innerhalb einer Woche","correct":false}]},{"id":"301","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was müssen Sie am digitalen Kontrollgerät beachten, wenn Sie nach 4 Stunden und 30  Minuten Lenkzeit eine Pause einlegen?","answers":[{"text":"Ich muss gleich nach dem Abstellen des Fahrzeuges meine Aktivität auf das Symbol  \"Ruhezeit\" umstellen","correct":true},{"text":"Ich muss gleich nach dem Abstellen des Fahrzeuges meine Aktivität auf das Symbol  \"Andere Arbeitszeit\" umstellen","correct":false},{"text":"Ich muss gleich nach dem Abstellen des Fahrzeuges meine Aktivität auf das Symbol  \"Bereitschaftszeit\" umstellen","correct":false},{"text":"Ich muss gleich nach dem Abstellen des Fahrzeuges meine Fahrerkarte aus dem Gerät  entnehmen","correct":false}]},{"id":"302","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie lenken ein Fahrzeug auf einer Autobahn. Sie planen, in den nächsten 15 Minuten einen  Rastplatz anzufahren, weil eine Lenkpause fällig ist. Plötzlich müssen Sie wegen eines  Verkehrsunfalles anhalten. Wie gehen Sie weiter vor?","answers":[{"text":"Ich lenke das Fahrzeug auf den Pannenstreifen, sichere ihn ab und halte die Lenkpause  dort. Andernfalls würde ich die zulässigen Lenkzeiten überschreiten","correct":false},{"text":"Ich warte ab, bis die Weiterfahrt möglich ist, und steuere danach für das Halten der  Lenkpause den nächstgelegenen Rastplatz an. Dort muss ich sofort einen manuellen  Ausdruck aus dem Kontrollgerät anfertigen und den Grund dieser Lenkzeitüberschreitung  dokumentieren","correct":true},{"text":"Ich nutze die nächstmögliche Betriebsabfahrt der Straßenmeisterei und halte die  Lenkpause dort. Andernfalls würde ich die zulässigen Lenkzeiten überschreiten","correct":false},{"text":"Ich lenke in die Rettungsgasse, sichere das Fahrzeug ab und halte die Lenkpause dort.  Andernfalls würde ich die zulässigen Lenkzeiten überschreiten","correct":false}]},{"id":"303","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie wollen ein Fahrzeug mit digitalem Kontrollgerät lenken. Ihre Fahrerkarte ist defekt  geworden oder verloren gegangen. Wie lang dürfen Sie ohne Karte fahren?","answers":[{"text":"Gar nicht","correct":false},{"text":"Höchstens 28 Tage","correct":false},{"text":"Höchstens 7 Tage","correct":false},{"text":"Höchstens 15 Tage","correct":true}]},{"id":"304","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie benutzen mit Ihrem Fahrzeug ein Fährschiff oder die \"Rollende Landstraße\". Unter  welchen Bedingungen gilt die dort verbrachte Zeit als tägliche Ruhezeit?","answers":[{"text":"Wenn eine Schlafkabine oder eine Koje oder ein Liegewagen zur Verfügung steht","correct":true},{"text":"Wenn der Waggon lärmarm zertifiziert ist","correct":false},{"text":"Wenn das Fährschiff klimatisiert ist","correct":false},{"text":"Wenn der Waggon klimatisiert ist","correct":false}]},{"id":"305","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"In welchem Staat muss ein EU-Bürger seine Fahrerkarte beantragen?","answers":[{"text":"In jedem beliebigen EU-Mitgliedstaat","correct":false},{"text":"In dem EU-Mitgliedstaat, in dem er seinen Wohnsitz hat","correct":true},{"text":"In dem EU-Mitgliedstaat, in dem er geboren wurde","correct":false},{"text":"In dem EU-Mitgliedstaat, in dem der Firmensitz liegt","correct":false}]},{"id":"306","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie arbeiten für verschiedene Arbeitgeber. Wie viele gültige Fahrerkarten dürfen Sie besitzen?","answers":[{"text":"Für jeden Arbeitgeber eine eigene","correct":false},{"text":"Höchstens fünf","correct":false},{"text":"Höchstens eine","correct":true},{"text":"Für jeden EU-Staat, in dem ich fahre, eine eigene","correct":false}]},{"id":"307","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wo ist in Österreich der Antrag für die Fahrerkarte zu stellen?","answers":[{"text":"Bei der Landesregierung, die für meinen Wohnsitz zuständig ist","correct":false},{"text":"Beim Dienstgeber","correct":false},{"text":"Bei der Bezirksverwaltungsbehörde, die für meinen Wohnsitz zuständig ist","correct":false},{"text":"Bei den Autofahrerclubs ARBÖ oder ÖAMTC","correct":true}]},{"id":"308","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Sie lenken ein Fahrzeug 4,5 Stunden lang. Kann die notwendige Lenkpause von 45 Minuten  auch geteilt werden?","answers":[{"text":"Ja. Teil 1 muss mindestens 15 Minuten, Teil 2 mindestens 30 Minuten lang dauern","correct":true},{"text":"Ja. Jede beliebige Aufteilung ist zulässig, solang nach 4,5 Stunden Lenkzeit 45 Minuten  Lenkpause gehalten werden","correct":false},{"text":"Nein","correct":false},{"text":"Ja. Wenn Teil 1 mindestens 25 Minuten gedauert hat, genügen für Teil 2 20 Minuten","correct":false}]},{"id":"309","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihre Fahrerkarte ist durch Zeitablauf ungültig geworden. Wie lang danach müssen Sie diese  Fahrerkarte noch mitführen?","answers":[{"text":"Gar nicht. Sie kann sofort vernichtet werden","correct":false},{"text":"Mindestens 56 Tage nach Ablauf der Gültigkeit","correct":true},{"text":"Noch die laufende Woche und dann weitere 15 Kalendertage","correct":false},{"text":"Noch die laufende Woche und dann weitere 7 Kalendertage","correct":false}]},{"id":"310","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Im Zuge einer Verkehrskontrolle wird aufgrund der Aufzeichnung am Schaublatt des  analogen Kontrollgerätes festgestellt, dass Sie mit 95 km/h unterwegs waren. Kann das zu  einer Bestrafung führen?","answers":[{"text":"Nein, weil der Ort der Geschwindigkeitsüberschreitung nicht festgestellt werden kann","correct":false},{"text":"Ja, auf jeden Fall","correct":false},{"text":"Ja, wenn die Geschwindigkeitsüberschreitung weniger als 2 Stunden vor der Kontrolle  erfolgt ist","correct":true},{"text":"Ja, aber nur, wenn der Strafbehörde der genaue Ort der Geschwindigkeitsüberschreitung  bekannt ist","correct":false}]},{"id":"311","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Nach welcher durchgehenden Lenkzeit müssen Sie die Fahrt spätestens unterbrechen?","answers":[{"text":"Nach 9 Stunden","correct":false},{"text":"Nach 4,5 Stunden","correct":true},{"text":"Nach 2 Stunden","correct":false},{"text":"Nach 3 Stunden","correct":false}]},{"id":"312","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Unter welchen Voraussetzungen dürfen Sie eine tägliche oder reduzierte wöchentliche  Ruhezeit im Fahrzeug verbringen?","answers":[{"text":"Wenn eine geeignete Schlafmöglichkeit (Schlafkabine) zur Verfügung steht und das  Fahrzeug stillsteht","correct":true},{"text":"Nur wenn das Fahrzeug mit Klimaanlage ausgestattet ist","correct":false},{"text":"Wenn kein Hotelzimmer in einem Umkreis von 10 km gefunden werden kann","correct":false},{"text":"Nur wenn das Fahrzeug mit Standheizung ausgestattet ist","correct":false}]},{"id":"313","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihr Fahrzeug hat ein analoges EG-Kontrollgerät. Darf das EG-Kontrollgerät während der  Einsatzzeit des Fahrzeuges geöffnet werden?","answers":[{"text":"Ja, während der Mittagspause","correct":false},{"text":"Ja, bei jeder Lenkpause","correct":false},{"text":"Ja, bei einem Fahrerwechsel, einer Kontrolle, einem Grenzübertritt oder einem  Fahrzeugwechsel","correct":true},{"text":"Nein, nie","correct":false}]},{"id":"314","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was bedeutet der Begriff \"Wöchentliche Ruhezeit\"?","answers":[{"text":"Das ist der wöchentliche Zeitraum, in dem ein Fahrer frei über seine Zeit verfügen kann.  Diese kann eine regelmäßige wöchentliche Ruhezeit oder eine reduzierte wöchentliche  Ruhezeit umfassen","correct":true},{"text":"Die Summe der in einer Kalenderwoche gehaltenen täglichen Ruhezeiten","correct":false},{"text":"Eine immer am Sonntag zu haltende Ruhezeit","correct":false},{"text":"Eine Ruhezeit, die immer in die Zeit des Wochenendfahrverbotes fällt","correct":false}]},{"id":"315","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wer ist für die korrekte Bedienung des digitalen Kontrollgerätes verantwortlich?","answers":[{"text":"Der Fahrzeughersteller","correct":false},{"text":"Der Empfänger der transportierten Fracht","correct":false},{"text":"Der Auftraggeber der Fahrt","correct":false},{"text":"Der Fahrer und der Arbeitgeber","correct":true}]},{"id":"316","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Ihr Omnibus ist mit einem Kontrollgerät Smart Tacho 2 (GEn2 V2) ausgestattet. Sie führen  damit eine Rundfahrt durch. Wie ist dann beim erstmaligen Einsteigen am Beginn bzw. beim  Aussteigen der Fahrgäste am Ende der Rundfahrt vorzugehen?","answers":[{"text":"Ich muss diesen Vorgang im Kontrollgerät durch Auswahl des entsprechenden Symbols  (\"laden\" oder \"entladen\" oder \"laden/entladen\") erfassen","correct":true},{"text":"Ich muss diesen Vorgang in einem eigenen Formblatt aufzeichnen","correct":false},{"text":"Ich muss diesen Vorgang nur dann in einem eigenen Formblatt aufzeichnen, wenn er länger  als 15 Minuten dauert","correct":false},{"text":"Ich muss diesen Vorgang im Kontrollgerät durch Auswahl des entsprechenden Symbols  \"Andere Arbeiten\" erfassen","correct":false}]},{"id":"317","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie lenken ein Fahrzeug mit digitalem Kontrollgerät. Am Display des Kontrollgerätes blinkt  die Meldung \"Geschwindigkeit zu hoch\". Wie sollten Sie sich verhalten?","answers":[{"text":"Ich suche sofort die nächste Werkstatt auf","correct":false},{"text":"Ich fahre langsamer und quittiere die Meldung durch Drücken der Taste \"OK\" am  Kontrollgerät","correct":true},{"text":"Ich muss auf dem Tagesausdruck dieses Ereignis durch meine Unterschrift quittieren","correct":false},{"text":"Ich muss die Firmenleitung innerhalb von 48 Stunden von dem Ereignis verständigen","correct":false}]},{"id":"318","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang darf die Lenkzeit zwischen zwei Ruhezeiten höchstens dauern?","answers":[{"text":"Im Normalfall insgesamt 9 Stunden, zweimal in der Kalenderwoche insgesamt 10 Stunden","correct":true},{"text":"Dreimal in der Kalenderwoche insgesamt 11 Stunden","correct":false},{"text":"Im Normalfall insgesamt 11 Stunden","correct":false},{"text":"Im Normalfall insgesamt 14 Stunden","correct":false}]},{"id":"319","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie oft darf die tägliche Lenkzeit während einer Woche auf 10 Stunden ausgedehnt werden?","answers":[{"text":"1 mal","correct":false},{"text":"2 mal","correct":true},{"text":"3 mal","correct":false},{"text":"4 mal","correct":false}]},{"id":"320","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie lenken ein Fahrzeug, das mit einem \"intelligenten\" digitalen Kontrollgerät ausgerüstet ist.  Wie können Sie im Regelfall den Nachweis über die Einhaltung der wöchentlichen Ruhezeit  erbringen?","answers":[{"text":"Durch Nachtragen beim ersten Stecken der Fahrerkarte nach der Ruhezeit","correct":true},{"text":"Durch das EU-Formblatt zur Bescheinigung lenkfreier Tage","correct":false},{"text":"Durch schriftliche Aufzeichnungen in einem Tagebuch","correct":false},{"text":"Durch eine formlose schriftliche Bestätigung der Geschäftsführung","correct":false}]},{"id":"321","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie viele Stunden darf die wöchentliche Lenkzeit grundsätzlich höchstens dauern?","answers":[{"text":"60 Stunden","correct":false},{"text":"38 Stunden","correct":false},{"text":"40 Stunden","correct":false},{"text":"56 Stunden","correct":true}]},{"id":"322","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was bedeutet der Begriff \"Lenkpause\"?","answers":[{"text":"Die Zeit, in der keine Lenk- oder andere Arbeitstätigkeit ausgeführt werden darf","correct":true},{"text":"Die Arbeitszeit, die im Zeitraum eines Tages anfällt, ausgenommen die Lenktätigkeiten","correct":false},{"text":"Die Zeit, in der keine Lenktätigkeit ausgeführt werden darf. Andere Tätigkeiten sind erlaubt","correct":false},{"text":"Die Zeit, in der keine Aufzeichnungen am Schaublatt oder auf der Fahrerkarte erfolgen","correct":false}]},{"id":"323","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Nach wie vielen Stunden ununterbrochener Lenkzeit muss spätestens eine Lenkpause  eingelegt werden?","answers":[{"text":"3 Stunden","correct":false},{"text":"4,5 Stunden","correct":true},{"text":"5 Stunden","correct":false},{"text":"5,5 Stunden","correct":false}]},{"id":"324","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Sie lenken einen LKW  ununterbrochen 4,5 Stunden lang. Wie lang muss Ihre Lenkpause dann  mindestens dauern?","answers":[{"text":"45 Minuten","correct":true},{"text":"60 Minuten","correct":false},{"text":"90 Minuten","correct":false},{"text":"120 Minuten","correct":false}]},{"id":"325","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie dehnen die tägliche Lenkzeit auf 10 Stunden aus. Wie viele Lenkpausen müssen Sie dann  halten?","answers":[{"text":"Eine genügt","correct":false},{"text":"Mindestens zwei","correct":true},{"text":"Mindestens drei","correct":false},{"text":"Mindestens vier","correct":false}]},{"id":"326","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Unter welcher Voraussetzung dürfen Sie mit Fahrzeugen mit digitalem Kontrollgerät ohne  Fahrerkarte fahren?","answers":[{"text":"Wenn ich meine Fahrerkarte verloren habe","correct":true},{"text":"Wenn ich meine Fahrerkarte gerade an einen Kollegen verborgt habe","correct":false},{"text":"Wenn ich meine Fahrerkarte zwar beantragt, sie aber noch nicht erhalten habe","correct":false},{"text":"Wenn mein Fahrzeug unbeladen ist","correct":false}]},{"id":"327","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Welche Standortdaten zeichnet das Kontrollgerät Smart Tacho 2 (GEN 2 V 2)  automatisch  auf?","answers":[{"text":"Die Geodaten zu Beginn und am Ende der täglichen Arbeitszeit bzw. nach jeweils drei  Stunden Lenkzeit, bei jeder Be- oder Entladung des Fahrzeuges, bei jeder Überschreitung  einer Grenze zu einem Mitgliedsstaat der EU","correct":true},{"text":"Den Standort nach jeweils viereinhalb Stunden Lenkzeit","correct":false},{"text":"Den vollständigen Fahrtverlauf","correct":false},{"text":"Den Standort einer Lenkpause","correct":false}]},{"id":"328","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang werden detaillierte Geschwindigkeitsdaten im Massenspeicher des Kontrollgerätes  gespeichert?","answers":[{"text":"24 Lenkstunden","correct":true},{"text":"365 Tage","correct":false},{"text":"24 Stunden","correct":false},{"text":"28 Tage","correct":false}]},{"id":"329","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang muss eine regelmäßige wöchentliche Ruhezeit mindestens dauern?","answers":[{"text":"24 Stunden","correct":false},{"text":"36 Stunden","correct":false},{"text":"45 Stunden","correct":true},{"text":"48 Stunden","correct":false}]},{"id":"330","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang muss eine verkürzte (reduzierte) wöchentliche Ruhezeit mindestens dauern?","answers":[{"text":"24 Stunden","correct":true},{"text":"30 Stunden","correct":false},{"text":"35 Stunden","correct":false},{"text":"40 Stunden","correct":false}]},{"id":"331","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"In welchem Fall müssen Sie an einem Tag eine dritte Lenkpause machen?","answers":[{"text":"Bei Vorliegen außergewöhnlicher Umstände nach der Halteplatzregel, wenn ich die  maximale tägliche Lenkzeit zum Erreichen meines Wohnstandortes oder meines  Firmenstandortes um zwei weitere Stunden verlängere, um dort eine regelmäßige  wöchentliche Ruhezeit zu halten","correct":true},{"text":"Nach der Halteplatzregel, wenn ich die maximale tägliche Lenkzeit zum Erreichen meines  Wohnstandortes oder meines Firmenstandortes um eine weitere Stunde verlängere, um  dort eine regelmäßige wöchentliche Ruhezeit zu halten","correct":false},{"text":"Wenn ich nach 11 Stunden Lenkzeit zum Erreichen meines Wohnstandortes oder meines  Firmenstandortes die Lenkzeit um eine weitere Stunde verlängere, um dort eine  regelmäßige wöchentliche Ruhezeit zu halten","correct":false},{"text":"Wenn ich nach 12 Stunden Lenkzeit zum Erreichen meines Wohnstandortes oder meines  Firmenstandortes die Lenkzeit um eine zwei weitere Stunden verlängere, um dort eine  regelmäßige wöchentliche Ruhezeit zu halten","correct":false}]},{"id":"332","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie müssen wegen der Halteplatzregel an einem Tag eine dritte Lenkpause halten. Wie lang  muss diese Lenkpause mindestens dauern?","answers":[{"text":"15 Minuten","correct":false},{"text":"25 Minuten","correct":false},{"text":"30 Minuten","correct":true},{"text":"60 Minuten","correct":false}]},{"id":"333","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie sind unmittelbar vor dem Beginn einer reduzierten wöchentlichen Ruhezeit. Unter  welchen Umständen dürfen Sie dann die täglich zulässige Lenkzeit von 10 Stunden um eine  Stunde ausdehnen?","answers":[{"text":"Wenn unvorhersehbare Umstände eintreten (z. B. widrige Witterungsbedingungen,  plötzlich auftretende Verkehrsstaus)","correct":true},{"text":"Das darf der Fahrer nach eigenem Ermessen entscheiden","correct":false},{"text":"Das darf der Firmeninhaber nach eigenem Ermessen anordnen","correct":false},{"text":"Das darf der Disponent nach eigenem Ermessen anordnen","correct":false}]},{"id":"334","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie sind unmittelbar vor dem Beginn einer regelmäßigen wöchentlichen Ruhezeit. Unter  welchen Umständen dürfen Sie dann die täglich zulässige Lenkzeit von 10 Stunden um zwei  Stunden ausdehnen?","answers":[{"text":"Wenn unvorhersehbare Umstände eintreten (z. B. widrige Witterungsbedingungen,  plötzlich auftretende Verkehrsstaus)","correct":true},{"text":"Das darf der Fahrer nach eigenem Ermessen entscheiden","correct":false},{"text":"Das darf der Firmeninhaber nach eigenem Ermessen anordnen","correct":false},{"text":"Das darf der Disponent nach eigenem Ermessen anordnen","correct":false}]},{"id":"335","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie haben die täglich zulässige Lenkzeit von 10 Stunden wegen eines unvorhersehbaren  Ereignisses verlängert. Was müssen Sie dann beim Erreichen ihres Fahrtziels beachten?","answers":[{"text":"Ich muss auf jeden Fall die Fahrerkarte aus dem Kontrollgerät entnehmen","correct":false},{"text":"Ich muss einen Ausdruck aus dem Kontrollgerät erstellen. Auf diesem Ausdruck bzw. dem  Schaublatt muss ich den Grund für die Überschreitung der täglich zulässigen Lenkzeit  vermerken","correct":true},{"text":"Ich muss auf jeden Fall das Schaublatt im Kontrollgerät belassen","correct":false},{"text":"Ich muss die Firmenleitung sofort von dem Ereignis verständigen","correct":false}]},{"id":"336","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie sind zu Ihrem Wohnort oder zur Firmenniederlassung im Heimatland unterwegs. Wegen  eines unvorhersehbaren Ereignisses haben Sie die zulässige tägliche Lenkzeit überschritten.  Wie lang darf in diesem Fall die wöchentliche Lenkzeit höchstens dauern?","answers":[{"text":"38 Stunden","correct":false},{"text":"40 Stunden","correct":false},{"text":"58 Stunden","correct":true},{"text":"60 Stunden","correct":false}]},{"id":"337","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie haben die täglich zulässige Lenkzeit von 10 Stunden wegen eines unvorhersehbaren  Ereignisses verlängert. Müssen Sie diese Verlängerung danach wieder ausgleichen?","answers":[{"text":"Nein","correct":false},{"text":"Ja, durch eine gleichwertige Ruhezeit. Diese muss spätestens zum Ende des dritten Monats,  das auf die Verlängerung folgt, genommen werden","correct":false},{"text":"Ja, durch eine gleichwertige Ruhezeit. Diese muss spätestens mit der nächstfolgenden  Ruhezeit genommen werden","correct":false},{"text":"Ja, durch eine gleichwertige Ruhezeit. Diese muss spätestens zum Ende der dritten Woche,  die auf die Woche folgt, in der die Verlängerung erfolgte, genommen werden","correct":true}]},{"id":"338","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wann muss eine regelmäßige wöchentliche Ruhezeit begonnen werden?","answers":[{"text":"Spätestens am Ende von sechs 24-Stunden Zeiträumen nach der letzten wöchentlichen  Ruhezeit","correct":true},{"text":"Spätestens am Ende von fünf 24-Stunden Zeiträumen nach der letzten wöchentlichen  Ruhezeit","correct":false},{"text":"Spätestens am Ende von acht 24-Stunden Zeiträumen nach der letzten wöchentlichen  Ruhezeit","correct":false},{"text":"Spätestens am Ende von 14 24-Stunden Zeiträumen nach der letzten wöchentlichen  Ruhezeit","correct":false}]},{"id":"339","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie haben eine verkürzte (reduzierte) wöchentliche Ruhezeit im Inland genommen. Müssen  Sie diese danach ausgleichen?","answers":[{"text":"Nein","correct":false},{"text":"Ja. Der Ausgleich muss spätestens am Ende der dritten Woche, die auf die Verkürzung folgt,  erfolgen. Dieser Ausgleich muss an eine Ruhezeit mit zumindest 24 Stunden Dauer  angehängt werden","correct":false},{"text":"Ja. Der Ausgleich muss spätestens am Ende der dritten Woche, die auf die Verkürzung folgt,  erfolgen. Dieser Ausgleich muss an eine Ruhezeit mit zumindest 11 Stunden angehängt  werden","correct":false},{"text":"Ja. Der Ausgleich muss spätestens am Ende der dritten Woche, die auf die Verkürzung folgt,  erfolgen. Dieser Ausgleich muss an eine Ruhezeit mit zumindest 9 Stunden angehängt  werden","correct":true}]},{"id":"340","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Darf eine wöchentliche Ruhezeit unterbrochen werden?","answers":[{"text":"Nein","correct":false},{"text":"Ja, bis zu zwei Mal, wenn diese Unterbrechungen insgesamt nicht länger als eine Stunde  dauern und im Zuge einer Eisenbahn- oder Fährfahrt erfolgen","correct":true},{"text":"Ja, wenn diese Unterbrechung insgesamt nicht länger als acht Stunden dauert","correct":false},{"text":"Ja, wenn diese Unterbrechung insgesamt nicht länger als vier Stunden dauert","correct":false}]},{"id":"341","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie halten eine regelmäßige wöchentliche Ruhezeit. Dürfen Sie diese in der Fahrerkabine  verbringen?","answers":[{"text":"Nein","correct":true},{"text":"Ja, immer","correct":false},{"text":"Ja, wenn das Fahrzeug auf einem gesicherten Parkplatz steht","correct":false},{"text":"Ja, wenn das Fahrzeug eine Heiz- und Kühlmöglichkeit hat","correct":false}]},{"id":"342","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie halten eine regelmäßige wöchentliche Ruhezeit. Wo dürfen Sie diese verbringen?","answers":[{"text":"In der Fahrerkabine","correct":false},{"text":"In einer geeigneten Unterkunft. Deren Kosten trägt der Arbeitgeber","correct":true},{"text":"In einer geeigneten Unterkunft. Deren Kosten trägt der Dienstnehmer","correct":false},{"text":"In einer geeigneten Unterkunft. Deren Kosten trägt das Arbeitsmarktservice","correct":false}]},{"id":"344","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Standortdaten zeichnet das \"intelligente\" Kontrollgerät Smart Tacho 1 (GEN 1 V2)  automatisch auf?","answers":[{"text":"Die Geodaten zu Beginn und am Ende der täglichen Arbeitszeit bzw. nach jeweils drei  Stunden Lenkzeit (diese Aufzeichnungen ersetzen jedoch nicht die erforderliche  Ländereingabe)","correct":true},{"text":"Den Standort nach jeweils viereinhalb Stunden Lenkzeit","correct":false},{"text":"Den vollständigen Fahrtverlauf","correct":false},{"text":"Den Standort einer Lenkpause","correct":false}]},{"id":"345","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Vorschriften gelten für die Rückkehr zum Wohnort des Fahrers oder zum  Firmenstandort?","answers":[{"text":"Fahrer müssen spätestens nach vier Wochen die Möglichkeit bekommen, zum Wohnort  oder Firmenstandort für eine regelmäßige Ruhezeit von mindestens 45 Stunden  zurückkehren","correct":true},{"text":"Fahrer müssen spätestens nach sechs Wochen die Möglichkeit bekommen, zum Wohnort  oder Firmenstandort für eine Ruhezeit zurückkehren","correct":false},{"text":"Fahrer müssen spätestens nach acht Wochen die Möglichkeit bekommen, zum Wohnort  oder Firmenstandort für eine Ruhezeit von mindestens 11 Stunden zurückkehren","correct":false},{"text":"Fahrer müssen spätestens nach vier Wochen die Möglichkeit bekommen, zum Wohnort  oder Firmenstandort für eine Ruhezeit von mindestens 9 Stunden zurückkehren","correct":false}]},{"id":"346","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Ihr LKW ist mit einem Kontrollgerät Smart Tacho 2 (GEn2 V2) ausgestattet. Wie ist dann bei  einem Be- oder Entladevorgang vorzugehen?","answers":[{"text":"Ich muss diesen Vorgang im Kontrollgerät durch Auswahl des entsprechenden Symbols  (\"laden\" oder \"entladen\" oder \"laden/entladen\") erfassen","correct":true},{"text":"Ich muss diesen Vorgang in einem eigenen Formblatt aufzeichnen","correct":false},{"text":"Ich muss diesen Vorgang nur dann in einem eigenen Formblatt aufzeichnen, wenn er länger  als 15 Minuten dauert","correct":false},{"text":"Ich muss diesen Vorgang im Kontrollgerät durch Auswahl des entsprechenden Symbols  \"Andere Arbeiten\" erfassen","correct":false}]},{"id":"347","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus ununterbrochen 4,5 Stunden lang. Wie lang muss Ihre Lenkpause  dann mindestens dauern?","answers":[{"text":"45 Minuten","correct":true},{"text":"60 Minuten","correct":false},{"text":"90 Minuten","correct":false},{"text":"120 Minuten","correct":false}]},{"id":"348","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus im Gelegenheitsverkehr 4,5 Stunden lang. Kann die notwendige  Lenkpause von 45 Minuten auch geteilt werden?","answers":[{"text":"Ja. Teil 1 muss mindestens 15 Minuten, Teil 2 mindestens 30 Minuten lang dauern","correct":false},{"text":"Ja. Jede beliebige Aufteilung ist zulässig, solang nach 4,5 Stunden Lenkzeit 45 Minuten  Lenkpause gehalten werden","correct":false},{"text":"Nein","correct":false},{"text":"Ja. Die Lenkpause kann in zwei Teile von je mindestens 15 Minuten geteilt werden, wenn  die Lenkpause in Summe 45 Minuten beträgt","correct":true}]},{"id":"349","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wann liegt im Bezug auf die wöchentliche Ruhezeit grenzüberschreitender Verkehr vor?","answers":[{"text":"Der Fahrer beginnt nur eine von zwei aufeinander folgenden reduzierten wöchentlichen  Ruhezeiten außerhalb des Staates, in dem der Standort des Unternehmens oder sein  Wohnsitzes liegt","correct":false},{"text":"Der Fahrer beginnt zwei aufeinander folgende reduzierte wöchentliche Ruhezeiten  außerhalb des Staates, in dem der Standort des Unternehmens oder sein Wohnsitzes liegt","correct":true},{"text":"Der Fahrer beginnt drei aufeinander folgende reduzierte wöchentliche Ruhezeiten  außerhalb des Staates, in dem der Standort des Unternehmens oder sein Wohnsitzes liegt","correct":false},{"text":"Der Fahrer beginnt keine aufeinander folgende reduzierte wöchentliche Ruhezeiten  außerhalb des Staates, in dem der Standort des Unternehmens oder sein Wohnsitzes liegt","correct":false}]},{"id":"350","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie haben zwei aufeinander folgende reduzierte (verkürzte) wöchentliche Ruhezeiten im  Ausland verbracht. Was gilt dann für den notwendigen Zeitausgleich?","answers":[{"text":"Der Fahrer muss vor dem Beginn des Zeitausgleichs und der anschließenden regelmäßigen  wöchentlichen Ruhezeit zum Standort des Unternehmens oder an seinen Wohnort  zurückkehren","correct":true},{"text":"Der Fahrer muss erst nach dem Beginn des Zeitausgleichs und der anschließenden  regelmäßigen wöchentlichen Ruhezeit zum Standort des Unternehmens oder an seinen  Wohnort zurückkehren","correct":false},{"text":"Der Fahrer muss erst spätestens nach vier Wochen zum Standort des Unternehmens oder  an seinen Wohnort zurückkehren","correct":false},{"text":"Der Fahrer muss erst spätestens nach acht Wochen zum Standort des Unternehmens oder  an seinen Wohnort zurückkehren","correct":false}]},{"id":"351","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie sind im Zweifahrerbetrieb unterwegs. Was gilt für die 45-minütige Lenkpause?","answers":[{"text":"Der Beifahrer darf die Lenkpause auch im fahrenden Fahrzeug verbringen, wenn er den  Fahrer in dieser Zeit nicht unterstützt","correct":true},{"text":"Während einer Lenkpause muss das Fahrzeug auf jeden Fall stehen","correct":false},{"text":"Der Fahrer darf die Lenkpause auch im fahrenden Fahrzeug verbringen, wenn er in dieser  Zeit vom Beifahrer unterstützt wird","correct":false},{"text":"Für den Beifahrer gilt jeder Zeitraum als Lenkpause, in der er das Fahrzeug nicht selbst lenkt","correct":false}]},{"id":"352","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang muss die regelmäßige tägliche Ruhezeit mindestens dauern?","answers":[{"text":"8 Stunden innerhalb von 30 Stunden bei Zweifahrerbesetzung","correct":false},{"text":"8 Stunden innerhalb von 24 Stunden bei Einfahrerbesetzung","correct":false},{"text":"11 Stunden innerhalb von 24 Stunden bei Einfahrerbesetzung","correct":true},{"text":"12 Stunden innerhalb von 48 Stunden bei Zweifahrerbesetzung","correct":false}]},{"id":"353","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lang muss die reduzierte tägliche Ruhezeit mindestens dauern?","answers":[{"text":"8 Stunden","correct":false},{"text":"9 Stunden","correct":true},{"text":"10 Stunden","correct":false},{"text":"11 Stunden","correct":false}]},{"id":"354","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie oft pro Woche darf die tägliche Ruhezeit auf 9 Stunden verkürzt werden?","answers":[{"text":"Ein mal","correct":false},{"text":"Zwei mal","correct":false},{"text":"Drei mal","correct":true},{"text":"Vier Mal","correct":false}]},{"id":"355","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie darf die tägliche Ruhezeit grundsätzlich geteilt werden?","answers":[{"text":"Auf 3 und 9 Stunden","correct":true},{"text":"Auf 8 und 4 Stunden","correct":false},{"text":"Auf 7 und 5 Stunden","correct":false},{"text":"Auf 6 und 6 stunden","correct":false}]},{"id":"371","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie den Ort, an dem Sie das Frachtgut  abholen müssen?","answers":[{"text":"Im \"Absender\"","correct":false},{"text":"Im Feld \"Empfänger\"","correct":false},{"text":"Im Feld \"Auslieferungsort des Gutes\"","correct":true},{"text":"Im Feld \"Ort und Tag der Übernahme des Gutes\"","correct":false}]},{"id":"372","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie das Datum, an dem Sie das Frachtgut  abholen müssen?","answers":[{"text":"Im Feld \"Absender\"","correct":false},{"text":"Im Feld \"Empfänger\"","correct":false},{"text":"Im Feld \"Auslieferungsort des Gutes\"","correct":true},{"text":"Im Feld \"Ort und Tag der Übernahme des Gutes\"","correct":false}]},{"id":"373","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie den Ort, an dem Sie das Frachtgut  abliefern müssen?","answers":[{"text":"Im Feld \"Absender\"","correct":false},{"text":"Im Feld \"Empfänger\"","correct":false},{"text":"Im Feld \"Auslieferungsort des Gutes\"","correct":false},{"text":"Im Feld \"Ort und Tag der Übernahme des Gutes\"","correct":true}]},{"id":"374","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie Anweisungen zum Transport des  Frachtgutes, die Sie beachten müssen?","answers":[{"text":"Im Feld \"Absender\"","correct":false},{"text":"Im Feld \"Empfänger\"","correct":false},{"text":"Im Feld \"Anweisungen des Absenders\"","correct":true},{"text":"Im Feld \"Vorbehalte und Anmerkungen der Frachtführer\"","correct":false}]},{"id":"375","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie Angaben darüber, welche Dokumente  den Transport des Frachtgutes begleiten?","answers":[{"text":"Im Feld \"Absender\"","correct":false},{"text":"Im Feld \"Empfänger\"","correct":false},{"text":"Im Feld \"Anweisungen des Absenders\"","correct":false},{"text":"Im Feld \"Beigefügte Dokumente\"","correct":true}]},{"id":"376","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie Angaben darüber, wie schwer das  Frachtgut ist?","answers":[{"text":"Im Feld \"Kennzeichen und Nummern\"","correct":false},{"text":"Im Feld \"Art der Verpackung\"","correct":false},{"text":"Im Feld \"Bruttogewicht in kg\"","correct":true},{"text":"Im Feld \"Anzahl der Packstücke\"","correct":false}]},{"id":"377","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"In welchem Feld eines CMR-Frachtbriefes finden Sie Angaben zu Datum und Uhrzeit, an dem  Sie das Frachtgut abliefern müssen?","answers":[{"text":"Im Feld \"Absender\"","correct":false},{"text":"Im Feld \"Empfänger\"","correct":false},{"text":"Im Feld \"Besondere Vereinbarungen\"","correct":true},{"text":"Im Feld \"Ort und Tag der Übernahme des Gutes\"","correct":false}]},{"id":"378","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Warum ist es wichtig, dass der Absender des Frachtgutes im Feld \"22 - Unterschrift und  Stempel des Absenders\" den CMR-Frachtbrief unterschreibt und abstempelt?","answers":[{"text":"Weil er damit für die Richtigkeit der Angaben im CMR-Frachtbrief haftet","correct":true},{"text":"Weil er damit das volle Transportrisiko übernimmt","correct":false},{"text":"Weil er damit die Versicherungsprämien übernimmt","correct":false},{"text":"Weil er damit Mautgebühren übernimmt","correct":false}]},{"id":"379","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Sie lenken einen LKW. Welche Gutachten und Prüfberichte über technische  Fahrzeugüberprüfungen müssen Sie mitführen?","answers":[{"text":"Das letzte Gutachten der wiederkehrenden Begutachtung (\"Pickerlüberprüfung\") und wenn  gegebenenfalls vorhanden, den letzten Prüfbericht über eine technische  Unterwegskontrolle","correct":true},{"text":"Das letzte Gutachten über die Funktion der GO-Box","correct":false},{"text":"Das letzte Gutachten über die Funktion der Klimaanlage im Fahrerhaus","correct":false},{"text":"Das letzte Gutachten über die Dichtheit der Plane bzw. des Kofferaufbaus","correct":false}]},{"id":"380","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Ihr LKW ist mit einer GO-Box zur Entrichtung der Maut ausgerüstet. Müssen Sie die zum LKW  gehörende Fahrzeugdeklaration der ASFINAG mitführen?","answers":[{"text":"Nein","correct":false},{"text":"Ja, auf jeden Fall","correct":false},{"text":"Ja, wenn der LKW mit einem Motor der Abgasklasse EURO 4 oder höher angetrieben wird","correct":true},{"text":"Ja, wenn der LKW mit einem Motor der Abgasklasse EURO 1, 2 oder 3 angetrieben wird","correct":false}]},{"id":"381","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Sie wollen in Ihrem LKW eine GO-Box zur Mauteinhebung anbringen. Was müssen Sie dabei  beachten?","answers":[{"text":"Sie muss am Dach des Fahrerhauses angebracht werden","correct":false},{"text":"Sie muss an der Innenseite der Windschutzscheibe zwischen Lenkradmitte und  Fahrzeugmitte, mindestens 10 cm oberhalb des Scheibenwischers in Ruhestellung und  mindestens 30 cm unterhalb der Windschutzscheibenoberkante angebracht sein. Genaue  Informationen zur ordnungsgemäßen Anbringung der GO-Box finde ich in der ASFINAG- Mautordnung","correct":true},{"text":"Sie muss an der Innenseite der Windschutzscheibe zwischen Fahrzeugmitte und  Beifahrertüre angebracht werden","correct":false},{"text":"Sie muss an der Innenseite der Beifahrertüre angebracht werden","correct":false}]},{"id":"382","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Die GO-Box Ihres Fahrzeuges hat beim Durchfahren eines Mautportals vier Signaltöne  abgegeben. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich suche innerhalb von 5 Stunden oder innerhalb einer Fahrtstrecke von 100 km eine  Vertriebsstelle auf, um die Maut nachzuzahlen","correct":true},{"text":"Ich stelle die Abgasklasse des LKW´s an der GO-Box neu ein","correct":false},{"text":"Ich habe 96 Stunden Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false},{"text":"Ich habe vier Wochen Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false}]},{"id":"383","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Was bedeutet es, wenn beim Durchfahren eines Mautportales kein Signalton der GO-Box  erfolgt?","answers":[{"text":"Das aufgebuchte Guthaben ist in Kürze verbraucht","correct":false},{"text":"Die Maut wurde nicht ordnungsgemäß entrichtet","correct":true},{"text":"Die Abgasklasse des LKW's ist richtig eingestellt","correct":false},{"text":"Die Abgasklasse des LKW's ist falsch eingestellt","correct":false}]},{"id":"384","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Die GO-Box Ihres Fahrzeuges hat beim Durchfahren eines Mautportals keinen Signalton  abgegeben. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich suche innerhalb von 5 Stunden oder innerhalb einer Fahrtstrecke von 100 km eine  Vertriebsstelle auf, um die Maut nachzuzahlen","correct":true},{"text":"Ich stelle die Abgasklasse des LKW's an der GO-Box neu ein","correct":false},{"text":"Ich habe 96 Stunden Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false},{"text":"Ich habe vier Wochen Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false}]},{"id":"385","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Sie lenken einen LKW der Fahrzeugklasse N2 mit 2 Achsen und ziehen einen einachsigen  Anhänger der Fahrzeugklasse O1. Was müssen Sie bei der Einstellung der GO-Box beachten?","answers":[{"text":"Dass die Achsenzahl auf \"2\" eingestellt ist","correct":false},{"text":"Dass die Achsenzahl auf \"4\" eingestellt ist","correct":false},{"text":"Dass die Achsenzahl auf \"3\" eingestellt ist","correct":true},{"text":"Dass die Achsenzahl auf \"S\" eingestellt ist","correct":false}]},{"id":"386","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Warum ist es wichtig, dass der Frachtführer des Frachtgutes im Feld \"Unterschrift und  Stempel des Frachtführers\" den CMR-Frachtbrief unterschreibt und abstempelt?","answers":[{"text":"Weil er damit für die Richtigkeit der Angaben im CMR-Frachtbrief haftet","correct":false},{"text":"Weil er damit das volle Transportrisiko übernimmt","correct":false},{"text":"Weil er damit dem Versender die Übernahme des Frachtgutes bestätigt","correct":true},{"text":"Weil er damit für die Richtigkeit der Gewichtsangaben haftet","correct":false}]},{"id":"387","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Warum ist es wichtig, dass der Empfänger des Frachtgutes im Feld \"Gut empfangen\" den  CMR-Frachtbrief unterschreibt und abstempelt?","answers":[{"text":"Weil er damit für die Richtigkeit der Angaben im CMR-Frachtbrief haftet","correct":false},{"text":"Weil er damit dem Frachtführer und dem Absender die ordnungsgemäße Übernahme des  Frachtgutes bestätigt","correct":true},{"text":"Weil er damit Mautgebühren übernimmt","correct":false},{"text":"Weil er damit Strafgebühren wegen Verkehrsverstößen beim Transport übernimmt","correct":false}]},{"id":"388","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Wie stellen Sie fest, ob die GO-Box im Fahrzeug funktionstüchtig ist?","answers":[{"text":"Durch eine Statusabfrage bei der GO-Box vor und nach der Fahrt","correct":true},{"text":"Durch das Starten des Fahrzeugmotors","correct":false},{"text":"Durch einen Anruf bei der Hotline der ASFINAG vor der Fahrt","correct":false},{"text":"Durch Auslesen der GO-Box mit der ASFINAG-Fahrer-App","correct":false}]},{"id":"389","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Wo soll die GO-Box auf der Windschutzscheibe des Fahrzeuges montiert werden, um eine  korrekte Mautentrichtung zu gewährleisten?","answers":[{"text":"An der Innenseite der Windschutzscheibe zwischen Lenkradmitte und Fahrzeugmitte,  mindestens 10 cm oberhalb des Scheibenwischers in Ruhestellung und mindestens 30 cm  unterhalb der Windschutzscheibenoberkante. Genaue Informationen zur  ordnungsgemäßen Anbringung der GO-Box sind in der ASFINAG-Mautordnung zu finden","correct":true},{"text":"Immer genau in der Fahrzeugmitte","correct":false},{"text":"Nahe der Oberkante der Windschutzscheibe","correct":false},{"text":"So, dass sie von den in Ruhelage befindlichen Scheibenwischern völlig verdeckt wird","correct":false}]},{"id":"390","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Was ist gesetzlich zur ordnungsgemäßen Entrichtung der LKW-Maut vorgesehen?","answers":[{"text":"Es muss im Fahrzeug eine GO-Box oder ein gleichwertiges Gerät installiert sein","correct":true},{"text":"Es muss eine Mautvignette mitgeführt werden","correct":false},{"text":"Es muss bei einem österreichischen Bankinstitut ein Dauerauftrag zur Abbuchung der Maut  eingerichtet sein","correct":false},{"text":"Es muss die ASFINAG-Fahrer-App vorgewiesen werden können","correct":false}]},{"id":"391","ziffer":"2b","klasse":"C1, C1E, C, CE","question":"Wann sollten Sie die Einstellung der Achsenzahl bei der GO-Box durchführen?","answers":[{"text":"Unmittelbar vor Fahrtantritt","correct":true},{"text":"Am Ende einer Arbeitswoche","correct":false},{"text":"Am Beginn einer wöchentlichen Ruhezeit","correct":false},{"text":"Am Beginn einer täglichen Ruhezeit","correct":false}]},{"id":"411","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus und führen im Gelegenheitsverkehr eine Fahrt mit älteren  Fahrgästen durch. Müssen Sie dafür sorgen, dass die Fahrgäste Sicherheitsgurte benutzen?","answers":[{"text":"Ja, auf jeden Fall","correct":false},{"text":"Nein, das liegt in der eigenen Verantwortung der einzelnen Fahrgäste","correct":true},{"text":"Ja, aber nur, wenn das Fahrziel im Freiland liegt","correct":false},{"text":"Nein, weil in Omnibussen keine Gurtpflicht beachtet werden muss","correct":false}]},{"id":"412","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Die GO-Box Ihres Fahrzeuges hat beim Durchfahren eines Mautportals vier Signaltöne  abgegeben. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich suche innerhalb von 5 Stunden bzw. einer Fahrtstrecke von 100 km eine Vertriebsstelle  auf, um die Maut nachzuzahlen","correct":true},{"text":"Ich stelle die Abgasklasse des Omnibusses an der GO-Box neu ein","correct":false},{"text":"Ich habe 96 Stunden Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false},{"text":"Ich habe vier Wochen Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false}]},{"id":"413","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Was bedeutet es, wenn beim Durchfahren eines Mautportales kein Signalton der GO-Box  erfolgt?","answers":[{"text":"Das aufgebuchte Guthaben ist in Kürze verbraucht","correct":false},{"text":"Die Maut wurde nicht ordnungsgemäß entrichtet","correct":true},{"text":"Die Abgasklasse des Omnibusses ist richtig eingestellt","correct":false},{"text":"Die Abgasklasse des Omnibusses ist falsch eingestellt","correct":false}]},{"id":"414","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Die GO-Box Ihres Fahrzeuges hat beim Durchfahren eines Mautportals keinen Signalton  abgegeben. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich suche innerhalb von 5 Stunden bzw. einer Fahrtstrecke von 100 km eine Vertriebsstelle  auf, um die Maut nachzuzahlen","correct":true},{"text":"Ich stelle die Abgasklasse des Omnibusses an der GO-Box neu ein","correct":false},{"text":"Ich habe 96 Stunden Zeit, eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false},{"text":"Ich habe vier Wochen Zeit, um eine Vertriebsstelle zur Nachzahlung der Maut aufzusuchen","correct":false}]},{"id":"415","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus der Fahrzeugklasse M2 mit 2 Achsen und ziehen einen einachsigen  Anhänger der Fahrzeugklasse O1. Müssen Sie die Einstellung der Achsenzahl bei der GO-Box  gegenüber einer Fahrt mit dem Bus ohne Anhänger verändern?","answers":[{"text":"Nein","correct":true},{"text":"Ja, ich muss die Achsenzahl auf \"3\" einstellen","correct":false},{"text":"Ja, ich muss die Achsenzahl auf \"4\" einstellen","correct":false},{"text":"Ja, ich muss die Achsenzahl auf \"S\" einstellen","correct":false}]},{"id":"417","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Am Beginn des Fahrdienstes überprüfen Sie Ihren Omnibus. Dabei stellen Sie fest, dass die  Frontscheibe auf Höhe des Reiseleiterplatzes einen etwa 50 cm langen Riss aufweist. Wie  sollten Sie sich verhalten?","answers":[{"text":"Ich melde diese Beschädigung unverzüglich dem Dienstgeber und darf mit diesem Omnibus  keine Fahrgäste befördern","correct":true},{"text":"Ich darf mit diesem Omnibus Fahrgäste befördern, solang der Riss nicht bis in meinem  Sichtbereich geht","correct":false},{"text":"Ich darf mit diesem Omnibus Fahrgäste befördern, solang dabei kein Reiseleiter mitfährt","correct":false},{"text":"Ich darf diesen Omnibus nicht in Betrieb nehmen","correct":false}]},{"id":"418","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie lenken im Gelegenheitsverkehr einen Omnibus mit 48 Sitzplätzen und holen eine  Reisegruppe ab. Dabei stellt sich heraus, dass die Reisegruppe 54 Personen umfasst. Wie  sollten Sie sich verhalten?","answers":[{"text":"Ich darf nicht mehr als 48 Personen im Omnibus befördern. Daher verständige ich  unverzüglich die Betriebsleitung, um das Problem zu lösen","correct":true},{"text":"Ich fahre mit den 54 Personen und lasse 6 Freiwillige im Mittelgang stehen","correct":false},{"text":"Ich fahre mit den 54 Personen und fordere die Fahrgäste auf, auf den Sitzplätzen  zusammenzurücken","correct":false},{"text":"Ich fahre mit den 54 Personen und lasse 6 Freiwillige im Gepäckraum mitfahren","correct":false}]},{"id":"419","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie lenken einen Omnibus und befördern Kinder oder Jugendliche im Alter zwischen 3 und 14  Jahren. Sind Sie dafür verantwortlich, dass die Kinder oder Jugendlichen die Sicherheitsgurte  benutzen?","answers":[{"text":"Nein, wenn im Gelegenheitsverkehr gefahren wird und eine erwachsene Begleitperson im  Omnibus mitfährt oder wenn im Linienverkehr gefahren wird","correct":true},{"text":"Ja, auf jeden Fall","correct":false},{"text":"Ja, aber nur, wenn ich einen Schülertransport durchführe","correct":false},{"text":"Ja, aber nur, wenn ich einen Kindergartentransport durchführe","correct":false}]},{"id":"420","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Wie müssen Sie Ihren Omnibus kennzeichnen, wenn Sie einen Schülertransport durchführen?","answers":[{"text":"Durch eine gelbrote quadratische Tafel mit dem Kindersymbol an der Vorder- und  Rückseite des Busses","correct":true},{"text":"Durch die Aufschrift \"Schülertransport\" im Zielschild","correct":false},{"text":"Durch gelbrote quadratische Tafeln mit dem Kindersymbol an den Seitenwänden des Busses","correct":false},{"text":"Durch gelbrote quadratische Tafeln mit dem Kindersymbol im Fahrgastraum an den Sitzen  des Busses","correct":false}]},{"id":"421","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Was haben Sie zu beachten, wenn Sie an der Haltestelle Kinder aus Ihrem Schulbus  aussteigen lassen?","answers":[{"text":"Ich muss die Alarmblinkanlage und zusätzliche Warnleuchten, welche in der Heckscheibe  oder am Dach des Busses montiert sind, einschalten","correct":true},{"text":"Ich muss Warnzeichen mit der Hupe abgeben","correct":false},{"text":"Ich muss den rechten Blinker einschalten","correct":false},{"text":"Ich muss den linken Blinker einschalten","correct":false}]},{"id":"422","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Sie sollen mit einem Omnibus einen Schülertransport durchführen. Welche  Lenkberechtigungen bzw. Eintragungen im Führerschein und behördliche Ausweise  berechtigen Sie dazu?","answers":[{"text":"Eine Lenkberechtigung der Klasse D oder D1 alleine reicht dazu immer aus. Es sind keine  weiteren Eintragungen im Führerschein notwendig","correct":false},{"text":"Eine Lenkberechtigung der Klasse D mit den im Führerschein eingetragenen Code \"95\" und  \"121\"","correct":false},{"text":"Eine Lenkberechtigung der Klasse D mit den im Führerschein eingetragenen Code \"95\" und  \"111\"","correct":false},{"text":"Eine Lenkberechtigung der Klasse D oder D1 mit dem im Führerschein eingetragenen Code  \"95\"","correct":true}]},{"id":"423","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Wie stellen Sie fest, ob die GO-Box im Fahrzeug funktionstüchtig ist?","answers":[{"text":"Durch eine Statusabfrage bei der GO-Box vor und nach der Fahrt","correct":true},{"text":"Durch das Starten des Fahrzeugmotors","correct":false},{"text":"Durch einen Anruf bei der Hotline der ASFINAG vor der Fahrt","correct":false},{"text":"Durch Auslesen der GO-Box mit der ASFINAG-Fahrer-App","correct":false}]},{"id":"424","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Wo soll die GO-Box auf der Windschutzscheibe des Fahrzeuges montiert werden, um eine  korrekte Mautentrichtung zu gewährleisten?","answers":[{"text":"An der Innenseite der Windschutzscheibe zwischen Lenkradmitte und Fahrzeugmitte,  mindestens 10 cm oberhalb des Scheibenwischers in Ruhestellung und mindestens 30 cm  unterhalb der Windschutzscheibenoberkante. Genaue Informationen zur  ordnungsgemäßen Anbringung der GO-Box sind in der ASFINAG-Mautordnung zu finden","correct":true},{"text":"Immer genau in der Fahrzeugmitte","correct":false},{"text":"Nahe der Oberkante der Windschutzscheibe","correct":false},{"text":"So, dass sie von den in Ruhelage befindlichen Scheibenwischern völlig verdeckt wird","correct":false}]},{"id":"425","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Was ist gesetzlich zur ordnungsgemäßen Entrichtung der Omnibus-Maut vorgesehen?","answers":[{"text":"Es muss im Fahrzeug eine GO-Box oder ein gleichwertiges Gerät installiert sein","correct":true},{"text":"Es muss eine Mautvignette mitgeführt werden","correct":false},{"text":"Es muss bei einem österreichischen Bankinstitut ein Dauerauftrag zur Abbuchung der Maut  eingerichtet sein","correct":false},{"text":"Es muss die ASFINAG-Fahrer-App vorgewiesen werden können","correct":false}]},{"id":"451","ziffer":"3a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie müssen rückwärts aus einem Firmengelände ausfahren und haben keine ausreichende  Sicht auf den herannahenden Verkehr. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich lasse mich von einer geeigneten Person einweisen","correct":true},{"text":"Ich schiebe im Schritttempo zurück. Der von rechts kommende Verkehr muss warten","correct":false},{"text":"Ich verzichte auf das Einweisen, wenn beim Rückwärtsfahren die Alarmblinkanlage  eingeschaltet ist","correct":false},{"text":"Ich verzichte auf das Einweisen, wenn beim Rückwärtsfahren der Rückfahrwarner  eingeschaltet ist","correct":false}]},{"id":"452","ziffer":"3a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Während der Fahrt läutet Ihr Handy. Das Telefon ist nicht mit einer Freisprecheinrichtung  gekoppelt. Wie verhalten Sie sich?","answers":[{"text":"Ich telefoniere, halte aber das Gespräch so kurz wie möglich","correct":false},{"text":"Ich telefoniere, konzentriere mich aber noch mehr als sonst auf den Verkehr","correct":false},{"text":"Ich lasse das Handy läuten und rufe nach Beendigung der Fahrt zurück","correct":true},{"text":"Ich antworte während der Fahrt mit einer Kurznachricht","correct":false}]},{"id":"453","ziffer":"3a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welches Schuhwerk ist beim Lenken eines Fahrzeugs zu benutzen?","answers":[{"text":"Fußumschließendes Schuhwerk (z.B. Sandalen mit Fersenriemen, Stiefel, Halbschuhe)","correct":true},{"text":"Pantoffeln","correct":false},{"text":"Genagelte Bergschuhe","correct":false},{"text":"Skischuhe","correct":false}]},{"id":"454","ziffer":"3a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie beschädigen beim Ausparken ein abgestelltes Fahrzeug. Der Lenker des anderen  Fahrzeuges ist nicht erreichbar. Müssen Sie diesen Unfall der nächsten Polizeidienststelle  melden?","answers":[{"text":"Ja, aber nur, wenn es sich um ein Fahrzeug mit ausländischem Kennzeichen handelt","correct":false},{"text":"Ja, dieser Unfall ist zu melden","correct":true},{"text":"Nein, es genügt, einen Zettel mit meinem Namen am anderen Fahrzeug anzubringen","correct":false},{"text":"Nein, es genügt, diesen Unfall nur der Versicherung zu melden","correct":false}]},{"id":"455","ziffer":"3a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche sind die häufigsten Unfallursachen mit LKW bzw. OMNIBUSSEN im Straßenverkehr?","answers":[{"text":"Nicht angepasste Geschwindigkeit sowie zu geringer Sicherheitsabstand","correct":true},{"text":"Zu hohe Aufmerksamkeit von Lenkerinnen und Lenkern","correct":false},{"text":"Gute Ausbildung von Lenkerinnen und Lenkern","correct":false},{"text":"Guter technischer Zustand der Fahrzeuge","correct":false}]},{"id":"456","ziffer":"3a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche sind die häufigsten Unfallursachen mit Beteiligung von Nutzfahrzeugen im  Straßenverkehr?","answers":[{"text":"Auffahrunfälle, Abkommen von der Fahrbahn, Zusammenstöße mit anderen Fahrzeugen","correct":true},{"text":"Zu geringe Fahrgeschwindigkeit","correct":false},{"text":"Zu hohe Aufmerksamkeit von Lenkerinnen und Lenkern","correct":false},{"text":"Guter technischer Zustand der Fahrzeuge","correct":false}]},{"id":"481","ziffer":"3b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Werden Fahrer und Unternehmer zur Verantwortung gezogen, wenn bei der Einreise nach  Großbritannien in ihrem Fahrzeug illegale Einwanderer entdeckt werden?","answers":[{"text":"Ja, es ist in jedem Fall mit Strafverfahren vor den Behörden oder Gerichten zu rechnen","correct":true},{"text":"Nein, wenn der Fahrer glaubhaft behauptet, nichts gewusst zu haben","correct":false},{"text":"Es wird immer nur der Fahrer zur Verantwortung gezogen","correct":false},{"text":"Es wird immer nur das Unternehmen zur Verantwortung gezogen","correct":false}]},{"id":"482","ziffer":"3b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was sollte bei der Ausreisekontrolle vom Festland (z. B. in Frankreich) in Richtung  Großbritannien vom Fahrer immer beantragt werden, um einer Schleusung illegaler  Einwanderer vorzubeugen?","answers":[{"text":"Eine behördliche Kontrolle des Laderaums mit Hilfe von Atemluft-Messgeräten","correct":true},{"text":"Es soll immer ein Spürhund angefordert werden","correct":false},{"text":"Eine behördliche Kontrolle des Laderaums mit Hilfe eines Scanners","correct":false},{"text":"Eine behördliche Kontrolle des Laderaums mit Hilfe von Wärmebild-Kameras","correct":false}]},{"id":"483","ziffer":"3b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ein Autostopper bittet Sie, mitgenommen zu werden. Wie sollten Sie sich verhalten, um einer  Schleusung illegaler Einwanderer vorzubeugen?","answers":[{"text":"Ich überzeuge mich, ob er für den Aufenthalt in Österreich ein gültiges Ausweisdokument  mit sich führt und nehme ihn im Zweifelsfall nicht mit","correct":true},{"text":"Ich darf ihn auf jeden Fall mitnehmen, wenn er Gepäckstücke mit sich führt","correct":false},{"text":"Ich darf ihn auf jeden Fall mitnehmen, wenn er ausreichend deutsch spricht","correct":false},{"text":"Ich darf ihn auf jeden Fall mitnehmen, wenn er über ausreichende Geldmittel verfügt","correct":false}]},{"id":"484","ziffer":"3b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ein Autostopper bittet Sie, mitgenommen zu werden. Welche Dokumente sollten Sie sich von  ihm zeigen lassen, damit Sie der Schleusung illegaler Einwanderer vorbeugen?","answers":[{"text":"Einen Reisepass oder Personalausweis eines EU- oder EWR-Staates oder eine  österreichische Aufenthaltskarte oder einen österreichischen Identitätsausweis","correct":true},{"text":"Einen Reisepass irgend eines Staates","correct":false},{"text":"Einen internationalen Führerschein","correct":false},{"text":"Einen nationalen Führerschein","correct":false}]},{"id":"485","ziffer":"3b","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie führen bei einer Tankstelle einen Tankvorgang durch. Wie sollten Sie sich dabei  verhalten, um der Schleusung illegaler Einwanderer vorzubeugen?","answers":[{"text":"Ich lasse den Motor laufen, schließe aber die Türe des Fahrerhauses","correct":false},{"text":"Ich schließe die Fahrzeugtüren bzw. Behälter und Ausrüstungskisten ab und kontrolliere vor  der Weiterfahrt, ob sich jemand in Hohlräumen des Fahrzeuges versteckt hat","correct":true},{"text":"Solang ich das Fahrzeug im Blick habe, kann ich ohne weiteres auf das Absperren des  Fahrzeuges verzichten","correct":false},{"text":"Ich stelle den Motor ab, lasse aber die Türe des Fahrerhauses geöffnet","correct":false}]},{"id":"511","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wodurch können Sie die Funktionsfähigkeit Ihrer Stützmuskulatur (z.B. der  Rückenmuskulatur) erhalten?","answers":[{"text":"Durch gezielte gymnastische Übungen","correct":true},{"text":"Durch viel sitzen und liegen","correct":false},{"text":"Durch eine vorgebeugte Haltung während der Fahrt","correct":false},{"text":"Durch eine rückwärtsgebeugte Haltung während der Fahrt","correct":false}]},{"id":"512","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie beladen Sie Ihr Fahrzeug möglichst ergonomisch bzw. gesundheitsschonend?","answers":[{"text":"Ich trage auf einmal so viel Gewicht, wie ich gerade noch heben kann","correct":false},{"text":"Ich gehe beim Heben von Lasten in die Knie und halten den Rücken gerade und nutze  möglichst Ladehilfen","correct":true},{"text":"Ich trage Lasten möglichst mit ausgestreckten Armen","correct":false},{"text":"Ich trage Lasten möglichst hinter dem Rücken","correct":false}]},{"id":"513","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wo treten die größten körperlichen Belastungen auf, wenn Sie Lasten falsch heben?","answers":[{"text":"Im Lendenwirbelbereich","correct":true},{"text":"Am Schienbein","correct":false},{"text":"In den Kniegelenken","correct":false},{"text":"An den Halswirbeln","correct":false}]},{"id":"514","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie hebt man eine Last richtig?","answers":[{"text":"Man beugt sich im Lendenwirbelbereich vor und hebt die Last mit möglichst gestreckten  Beinen","correct":false},{"text":"Man hält die Last möglichst weit vom Körper entfernt","correct":false},{"text":"Man geht nach unten in die Hocke mit aufrechtem Rücken und gebeugten Knien. Die  Gewichte sollen nahe am Körper gehalten werden. Die Last soll zügig und gleichmäßig  angehoben werden","correct":true},{"text":"Zuerst kniet man sich nieder, nimmt die Last in die Hände und steht danach auf","correct":false}]},{"id":"515","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Bei langen Fahrzeiten ohne Flüssigkeitszufuhr und mit starrer Beinhaltung besteht die  Gefahr...","answers":[{"text":"eines Herzinfarktes","correct":false},{"text":"eines Schlaganfalles","correct":false},{"text":"eines Nierenversagens","correct":false},{"text":"eines Blutgerinnsels in den Beinvenen","correct":true}]},{"id":"516","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Andauernde, laute Radiomusik beim Lenken eines Fahrzeuges...","answers":[{"text":"fördert die Konzentrationsfähigkeit","correct":false},{"text":"fördert die Durchblutung des Gehirns","correct":false},{"text":"trainiert und verbessert die Hörfähigkeit","correct":false},{"text":"vermindert die Konzentrationsfähigkeit","correct":true}]},{"id":"517","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Beim Lenken eines Fahrzeuges soll ich...","answers":[{"text":"meine Sitzhaltung und Sitzposition möglichst nicht verändern und starr sitzen bleiben","correct":false},{"text":"meine Sitzhaltung und Sitzposition möglichst häufig verändern z.B. leicht nach vorn beugen,  zurücklehnen","correct":true},{"text":"die Beine immer gestreckt halten und möglichst gar nicht beugen","correct":false},{"text":"die Beine immer gebeugt halten und gar nicht strecken","correct":false}]},{"id":"518","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Bei durchgetretenem Brems- oder Kupplungspedal...","answers":[{"text":"sollen die Beine möglichst völlig gestreckt sein","correct":false},{"text":"sollen die Beine möglichst stark gebeugt sein","correct":false},{"text":"sollen die Beine leicht angewinkelt sein","correct":true},{"text":"ist die Stellung der Beine egal","correct":false}]},{"id":"519","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wirbelsäulenerkrankungen und Rückenschmerzen...","answers":[{"text":"entstehen nur beim Tragen von zu schweren Lasten","correct":false},{"text":"kommen bei Berufskraftfahrern häufig vor","correct":true},{"text":"kommen bei Berufskraftfahrern seltener vor als bei Gelegenheitsfahrern","correct":false},{"text":"entstehen nur beim Heben von zu schweren Lasten","correct":false}]},{"id":"520","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was führt zu verbessertem Schlafverhalten?","answers":[{"text":"Wenn ich vor dem Schlafengehen Entspannungstechniken anwende","correct":true},{"text":"Wenn ich vor dem Schlafengehen übermäßig fettreiche Mahlzeiten konsumiere","correct":false},{"text":"Wenn ich immer einen Mittagsschlaf halte","correct":false},{"text":"Wenn ich vor dem Schlafengehen übermäßig Alkohol konsumiere","correct":false}]},{"id":"521","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wodurch kann die Widerstandsfähigkeit gegen Stress erhöht werden?","answers":[{"text":"Durch möglichst seltenes Ausüben von Sport","correct":false},{"text":"Durch regelmäßiges Mentaltraining","correct":true},{"text":"Durch regelmäßigen Konsum von Alkohol","correct":false},{"text":"Durch wenig Schlaf","correct":false}]},{"id":"522","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Flüssigkeiten und in welchen Mengen sollten Sie täglich trinken?","answers":[{"text":"Wasser oder ungezuckerten Kräuter- oder Früchtetee (2 - 3 Liter)","correct":true},{"text":"Energy Drinks (2 Dosen)","correct":false},{"text":"Bier (1 Liter)","correct":false},{"text":"Mit Wasser verdünnten Wein (0,75 Liter)","correct":false}]},{"id":"523","ziffer":"3c","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Eine gute körperliche Kondition…","answers":[{"text":"steigert die geistige Leistungsfähigkeit und Konzentrationsfähigkeit beim Autofahren","correct":true},{"text":"hat keine Auswirkungen auf die geistige Leistungsfähigkeit und Konzentrationsfähigkeit","correct":false},{"text":"vermindert die geistige Leistungsfähigkeit und Konzentrationsfähigkeit","correct":false},{"text":"erhält man automatisch beim langen Autofahren","correct":false}]},{"id":"541","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Die Tageszeit beeinflusst die Leistungsfähigkeit eines Menschen. Wann ist die  Leistungsfähigkeit normalerweise am geringsten?","answers":[{"text":"Zwischen 12 und 14 Uhr","correct":false},{"text":"Zwischen 2 und 4 Uhr","correct":true},{"text":"Zwischen 8 und 10 Uhr","correct":false},{"text":"Zwischen 17 und 19 Uhr","correct":false}]},{"id":"542","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie kann vorzeitiger Ermüdung und herabgesetzter Aufmerksamkeit vorgebeugt werden?","answers":[{"text":"Durch günstige Ernährung (fettarm, keine Süßigkeiten) und ausreichende Trinkmenge","correct":true},{"text":"Durch möglichst langes Fahren ohne Pausen","correct":false},{"text":"Durch hohes Schlafdefizit","correct":false},{"text":"Sehr hohe warme Umgebungstemperatur im Fahrzeug","correct":false}]},{"id":"543","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Auswirkungen auf die kraftfahrspezifische Leistungsfähigkeit hat der Konsum von  Alkohol?","answers":[{"text":"Deutliche Leistungssteigerung","correct":false},{"text":"Verlängerung der Reaktionszeit","correct":true},{"text":"Verbesserung der manuellen Geschicklichkeit","correct":false},{"text":"Verbesserung der Konzentration","correct":false}]},{"id":"544","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Trifft diese Aussage zu: \"Beim Lenken eines Nutzfahrzeuges kann die Herzfrequenz auf 140- 160 Schläge pro Minute steigen.\"","answers":[{"text":"Nein, die Herzfrequenz hat mit dem Lenken eines Nutzfahrzeuges nichts zu tun","correct":false},{"text":"Nein, das ist viel zu hoch. Sie bewegt sich höchstens im Bereich zwischen 60-80 Schläge in  der Minute in Stresssituationen","correct":false},{"text":"Nein, diese Aussage ist auch für Gefahrensituationen nicht richtig","correct":false},{"text":"Ja, diese Aussage ist richtig und darüber hinaus führt eine ständig zu hohe Herzfrequenz zu  psychischem Stress und kann krank machen","correct":true}]},{"id":"545","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie hoch ist die durchschnittliche Herzfrequenz eines Menschen im Ruhezustand?","answers":[{"text":"100 -120 Schläge in der Minute","correct":false},{"text":"180 - 200 Schläge in der Minute","correct":false},{"text":"60 - 80 Schläge in der Minute","correct":true},{"text":"Über 200 Schläge in der Minute","correct":false}]},{"id":"546","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Durch welches Essverhalten können Sie Ihre Leistungs- bzw. Konzentrationsfähigkeit positiv  beeinflussen?","answers":[{"text":"Ich esse in meiner Mittagspause drei Leberkäsesemmeln","correct":false},{"text":"Ich esse in jeder Pause möglichst viel","correct":false},{"text":"Ich esse mehrere kleine, kohlehydratreiche, fettarme Mahlzeiten über den Tag verteilt","correct":true},{"text":"Ich esse nur einmal täglich, dafür jedoch eine vitaminreiche Mahlzeit","correct":false}]},{"id":"547","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie haben noch 300 km zu fahren und bemerken, dass Sie müde werden. Was sollten Sie tun?","answers":[{"text":"Ich trinke einen Energy-Drink zum Aufputschen","correct":false},{"text":"Ich lege eine ausreichende Erholungspause ein und betätige mich dabei körperlich","correct":true},{"text":"Ich fahre weiter und hoffe darauf, dass sich meine Müdigkeit nicht so verstärkt, dass ich  fahruntüchtig werde","correct":false},{"text":"Ich trinke einen Kaffee zum Aufputschen","correct":false}]},{"id":"548","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie stehen beim Fahren im dichten Stadtverkehr unter Zeitdruck. Was sollten Sie tun?","answers":[{"text":"Ich fahre möglichst schnell und nütze dabei jede Gelegenheit zum Spurwechsel","correct":false},{"text":"Ich überschreite die vorgeschriebenen Geschwindigkeitsbeschränkungen so weit, dass kein  Führerscheinentzug droht","correct":false},{"text":"Ich mache die verlorene Zeit wieder gut, indem ich zu den vor mir fahrenden Fahrzeugen  knapper auffahre","correct":false},{"text":"Ich mache mir bewusst, dass schnelleres Fahren im Stadtverkehr meist nichts bringt und  fahre normal weiter","correct":true}]},{"id":"549","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie fahren mit einem Nutzfahrzeug und werden bei einer Fahrpause auf einen halben Liter  Bier eingeladen. Wie verhalten Sie sich?","answers":[{"text":"Ich trinke aus Kollegialität ein Bier mit, aber sicherlich kein Zweites","correct":false},{"text":"Ich lehne strikt ab, weil schon kleine Alkoholmengen beeinträchtigen können","correct":true},{"text":"Ich trinke ein Bier mit und nur wenn ich mich fit fühle, fahre ich weiter","correct":false},{"text":"Ich trinke ein Bier mit, weil ich damit den Alkoholwert von 0,5 Promille nicht erreiche.","correct":false}]},{"id":"550","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie haben gestern ausgiebig gefeiert und viel Alkohol getrunken. Nach wenigen Stunden  Schlaf sollten Sie heute als Berufskraftfahrer fahren. Welches Verhalten wäre richtig?","answers":[{"text":"Ich achte besonders aufmerksam auf das eigenen Befinden und fahre nur dann, wenn ich  keine Kopfschmerzen fühle","correct":false},{"text":"Ich nehme ein ausgiebiges Frühstück zu mir und fahre los, wenn ich mich gut fühle","correct":false},{"text":"Ich nehme aufputschende Medikamente ein und fahre vorsichtig los","correct":false},{"text":"Ich fahre nicht, weil noch lange Zeit die Gefahr einer Alkoholbeeinträchtigung in Form von  Restalkohol besteht","correct":true}]},{"id":"551","ziffer":"3d","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Auswirkungen hat Stress auf den Körper?","answers":[{"text":"Man wird ruhig und konzentriert","correct":false},{"text":"Häufiger Stress macht den Körper widerstandsfähig","correct":false},{"text":"Blutdruck und Herzfrequenz steigen und es kann zur Verringerung der  Informationsverarbeitung im Gehirn kommen","correct":true},{"text":"Unter Stress trifft man leichter die richtigen Entscheidungen","correct":false}]},{"id":"571","ziffer":"3e","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie wollen in Österreich die Polizei alarmieren. Welche Notrufnummer ist dafür zu wählen?","answers":[{"text":"122","correct":false},{"text":"133 oder 112","correct":true},{"text":"144","correct":false},{"text":"166","correct":false}]},{"id":"572","ziffer":"3e","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Wie lautet die einheitliche europäische Notfallnummer?","answers":[{"text":"112","correct":true},{"text":"111","correct":false},{"text":"133","correct":false},{"text":"114","correct":false}]},{"id":"573","ziffer":"3e","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ein hinter Ihnen fahrender Mopedfahrer fährt auf Ihr Fahrzeug auf. Dadurch verletzt er sich,  will aber keine Verständigung der Polizei. Wie sollten Sie sich verhalten?","answers":[{"text":"Ich leiste Erste Hilfe und verständige trotzdem sofort die Polizei","correct":true},{"text":"Ich verständige die Polizei nur dann, wenn sich der Mopedfahrer nicht ausweisen kann","correct":false},{"text":"Ich verständige in diesem Fall nur den nächsten Arzt","correct":false},{"text":"Es reicht aus, wenn ich Erste Hilfe leiste. Dann muss die Polizei nicht verständigt werden","correct":false}]},{"id":"574","ziffer":"3e","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Was kann zur besseren Verarbeitung eines Unfallerlebnisses beitragen?","answers":[{"text":"Wenn ich starke Beruhigungsmittel einnehme, um sofort wieder fahren zu können","correct":false},{"text":"Wenn ich nicht mit anderen über das Unfallerlebnis spreche","correct":false},{"text":"Wenn ich auf den Schock Alkohol trinke","correct":false},{"text":"Wenn ich mir professionelle Hilfe hole, um das Unfallerlebnis aufzuarbeiten","correct":true}]},{"id":"591","ziffer":"3f","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Hat Ihr Fahrverhalten Auswirkungen auf das Ansehen des Unternehmens, für das Sie fahren?","answers":[{"text":"Nein, sicher nicht","correct":false},{"text":"Ja. Da Nutzfahrzeuge häufig Firmenaufschriften tragen, verbinden andere  Verkehrsteilnehmer ein riskantes Fahrverhalten negativ mit meiner Firma","correct":true},{"text":"Nein. Die anderen Verkehrsteilnehmer verbinden mein Fahrverhalten nicht mit meiner  Firma","correct":false},{"text":"Nein, solang mein Fahrzeug keine Firmenaufschrift trägt","correct":false}]},{"id":"592","ziffer":"3f","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Warum sollten Sie im Fahrdienst auf den Zustand Ihrer Kleidung achten?","answers":[{"text":"Saubere und unbeschädigte Kleidung bewirkt, dass Kunden ein positives Bild von mir und  der Firma, für die ich fahre, gewinnen","correct":true},{"text":"Zerrissene Kleidung bewirkt, dass Kunden ein positives Bild von mir und der Firma, für die  ich fahre, gewinnen","correct":false},{"text":"Schmutzige Kleidung bewirkt, dass Kunden ein positives Bild von mir und der Firma, für die  ich fahre, gewinnen","correct":false},{"text":"Offensichtlich abgetragene Kleidung bewirkt, dass Kunden ein positives Bild von mir und  der Firma, für die ich fahre, gewinnen","correct":false}]},{"id":"593","ziffer":"3f","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Warum sollten Sie im Fahrdienst ruhig und besonnen mit Kunden sprechen?","answers":[{"text":"Ruhiges sprechen bewirkt, dass Kunden ein positives Bild von mir und von der Firma, für die  ich fahre, gewinnen","correct":true},{"text":"Ruhiges sprechen bewirkt, dass Kunden ein unvorteilhaftes Bild von mir gewinnen","correct":false},{"text":"Ruhiges sprechen bewirkt, dass Kunden ein negatives Bild von der Firma, für die ich fahre,  gewinnen","correct":false},{"text":"Besonnenes sprechen bewirkt, dass Kunden ein negatives Bild von der Firma, für die ich  fahre, gewinnen","correct":false}]},{"id":"594","ziffer":"3f","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Warum sollten Sie im Fahrdienst höflich mit Kunden umgehen?","answers":[{"text":"Höflicher Umgang bewirkt, dass Kunden ein positives Bild von mir und von der Firma, für  die ich fahre, gewinnen","correct":true},{"text":"Höflicher Umgang bewirkt, dass Kunden ein unvorteilhaftes Bild von der Firma, für die ich  fahre, gewinnen","correct":false},{"text":"Höflicher Umgang bewirkt, dass Kunden ein negatives Bild von mir gewinnen","correct":false},{"text":"Höflicher Umgang bewirkt, dass Kunden ein nur ein neutrales Bild von mir gewinnen","correct":false}]},{"id":"595","ziffer":"3f","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Hat der technische Zustand ihres Fahrzeuges Auswirkungen auf das Ansehen des  Unternehmens, für das Sie fahren?","answers":[{"text":"Nein, sicher nicht","correct":false},{"text":"Ja. Da Nutzfahrzeuge häufig Firmenaufschriften tragen, verbinden Kunden einen schlechten  technischen Zustand meines Fahrzeuges negativ mit meiner Firma","correct":true},{"text":"Ja. Da Nutzfahrzeuge häufig Firmenaufschriften tragen, verbinden Kunden einen schlechten  technischen Zustand meines Fahrzeuges positiv mit meiner Firma","correct":false},{"text":"Nein, solang mein Fahrzeug keine Firmenaufschrift trägt","correct":false}]},{"id":"596","ziffer":"3f","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Hat die Sauberkeit ihres Fahrzeuges Auswirkungen auf das Ansehen des Unternehmens, für  das Sie fahren?","answers":[{"text":"Nein, sicher nicht","correct":false},{"text":"Ja. Da Nutzfahrzeuge häufig Firmenaufschriften tragen, verbinden Kunden ein unsauberes  Fahrzeug negativ mit meiner Firma","correct":true},{"text":"Ja. Da Nutzfahrzeuge häufig Firmenaufschriften tragen, verbinden Kunden ein unsauberes  Fahrzeug positiv mit meiner Firma","correct":false},{"text":"Nein, solang mein Fahrzeug keine Firmenaufschrift trägt","correct":false}]},{"id":"621","ziffer":"3g","klasse":"C1, C1E, C, CE","question":"Sie fahren Im Werkverkehr. Wann benötigen Sie keinen Fahrerqualifizierungsnachweis?","answers":[{"text":"Wenn der Werkverkehr nur innerhalb Österreichs stattfindet","correct":false},{"text":"Wenn nur Materialien befördert werden, die ich zur Berufsausübung benötige und das  Lenken nicht die Haupttätigkeit darstellt","correct":true},{"text":"Wenn nur Materialen befördert werden, die im Eigentum des Gewerbeinhabers stehen","correct":false},{"text":"Wenn nur im Ortsgebiet gefahren wird","correct":false}]},{"id":"622","ziffer":"3g","klasse":"C1, C1E, C, CE","question":"Wann verliert der Fahrerqualifizierungsnachweis seine Gültigkeit?","answers":[{"text":"Wenn die Lenkberechtigung entzogen worden ist","correct":false},{"text":"Wenn nicht alle 3 Jahren eine Weiterbildung erfolgt","correct":false},{"text":"Wenn nicht alle 5 Jahren eine Weiterbildung erfolgt","correct":true},{"text":"Wenn die Grundqualifikationsprüfung nicht alle 5 Jahre neu abgelegt wird","correct":false}]},{"id":"623","ziffer":"3g","klasse":"C1, C1E, C, CE","question":"Wie lang ist ein Fahrerqualifizierungsnachweis gültig?","answers":[{"text":"3 Jahre","correct":false},{"text":"4 Jahre","correct":false},{"text":"5 Jahre","correct":true},{"text":"6 Jahre","correct":false}]},{"id":"624","ziffer":"3g","klasse":"C1, C1E, C, CE","question":"Wie ist die Dauer der Weiterbildung für die Verlängerung des  Fahrerqualifizierungsnachweises geregelt?","answers":[{"text":"Es müssen mindestens 35 Stunden innerhalb von 3 Jahren nachgewiesen werden","correct":false},{"text":"Es müssen mindestens 35 Stunden innerhalb von 5 Jahren nachgewiesen werden","correct":true},{"text":"Es dürfen höchstens 25 Stunden innerhalb von 2 Jahren nachgewiesen werden","correct":false},{"text":"Es dürfen höchstens 30 Stunden innerhalb von 4 Jahren nachgewiesen werden","correct":false}]},{"id":"625","ziffer":"3g","klasse":"C1, C1E, C, CE","question":"Wo kann in Österreich eine rechtsgültige Weiterbildung für die Verlängerung des  Fahrerqualifizierungsnachweises absolviert werden?","answers":[{"text":"Bei einer ermächtigten Ausbildungsstätte","correct":true},{"text":"Bei jeder Person, die in ihrem Führerschein den Code \"95\" eingetragen hat","correct":false},{"text":"Bei jedem Güterbeförderungsunternehmen, das mehr als 5 LKW betreibt","correct":false},{"text":"Bei jeder Ausbildungsstätte, die Stapler- und Krankurse anbieten darf","correct":false}]},{"id":"626","ziffer":"3g","klasse":"C1, C1E, C, CE","question":"Für welche Transporte sind neben dem Fahrerqualifizierungsnachweis Zusatzqualifikationen  notwendig?","answers":[{"text":"Gefahrguttransporte sowie Transporte von Lebendtieren auf Langstrecken","correct":true},{"text":"Schwerlasttransporte","correct":false},{"text":"Temperaturgeführte Transporte","correct":false},{"text":"Autotransporte","correct":false}]},{"id":"651","ziffer":"3h","klasse":"D1, D1E, D, DE","question":"Welche Funktionen übernimmt ein Reiseleiter bei einer Busfahrt?","answers":[{"text":"Er informiert die Reisegäste über den Ablauf der Reise und über die täglichen Reiseziele","correct":true},{"text":"Er hat in erster Linie die Aufgabe, die Fahrerin bzw. den Fahrer beim Lenken des  Omnibusses zu unterstützen","correct":false},{"text":"Er kümmert sich darum, dass das Reisegepäck im Bus sicher verstaut ist","correct":false},{"text":"Er kümmert sich darum, dass die Fahrerin bzw. den Fahrer beim Lenken des Omnibusses  nicht ermüden","correct":false}]},{"id":"652","ziffer":"3h","klasse":"D1, D1E, D, DE","question":"Sie befördern mit einem Omnibus eine Gruppe von Personen im Gelegenheitsverkehr von  Wien nach Salzburg. Welche Dokumente müssen Sie als Lenker dabei mitführen?","answers":[{"text":"Identitätsnachweise für alle mitfahrenden Personen","correct":false},{"text":"Ein Fahrtenblatt aus dem EU-Fahrtenheft","correct":false},{"text":"Die Zulassungsbescheinigung des Omnibusses","correct":true},{"text":"Eine Abschrift der Konzessionsurkunde des Unternehmens","correct":false}]},{"id":"653","ziffer":"3h","klasse":"D1, D1E, D, DE","question":"Der Fahrerqualifizierungsnachweis verliert seine Gültigkeit, wenn...","answers":[{"text":"die Lenkerberechtigung entzogen wird","correct":false},{"text":"innerhalb von 3 Jahren keine Weiterbildung erfolgt","correct":false},{"text":"innerhalb von 5 Jahren keine Weiterbildung erfolgt","correct":true},{"text":"die Grundqualifikationsprüfung nicht alle 5 Jahre wiederholt wird","correct":false}]},{"id":"654","ziffer":"3h","klasse":"D1, D1E, D, DE","question":"Wie lang ist ein Fahrerqualifizierungsnachweis gültig?","answers":[{"text":"3 Jahre","correct":false},{"text":"4 Jahre","correct":false},{"text":"5 Jahre","correct":true},{"text":"6 Jahre","correct":false}]},{"id":"655","ziffer":"3h","klasse":"D1, D1E, D, DE","question":"Wie ist die Dauer der Weiterbildung für die Verlängerung des  Fahrerqualifizierungsnachweises geregelt?","answers":[{"text":"Es müssen mindestens 35 Stunden innerhalb von 3 Jahren nachgewiesen werden","correct":false},{"text":"Es müssen mindestens 35 Stunden innerhalb von 5 Jahren nachgewiesen werden","correct":true},{"text":"Es dürfen höchstens 25 Stunden innerhalb von 2 Jahren nachgewiesen werden","correct":false},{"text":"Es dürfen höchstens 30 Stunden innerhalb von 4 Jahren nachgewiesen werden","correct":false}]},{"id":"656","ziffer":"3h","klasse":"D1, D1E, D, DE","question":"Wo kann in Österreich eine rechtsgültige Weiterbildung für die Verlängerung des  Fahrerqualifizierungsnachweises absolviert werden?","answers":[{"text":"Bei einer ermächtigten Ausbildungsstätte","correct":true},{"text":"Bei jeder Person, die in ihrem Führerschein den Code \"95\" eingetragen hat","correct":false},{"text":"Bei jedem Omnibusunternehmen, das mehr als 5 Omnibusse betreibt","correct":false},{"text":"Bei jeder Ausbildungsstätte, die Stapler- und Krankurse anbieten darf","correct":false}]},{"id":"700","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Sie wollen ein Fahrzeug mit digitalem Kontrollgerät lenken. Wie sollten Sie sich bei Fahrtende  verhalten, wenn Ihre Fahrerkarte defekt geworden oder verloren gegangen ist?","answers":[{"text":"Ich fertige einen Tagesausdruck an. Dieser Ausdruck ist mit meinem Namen und der  Nummer des Führerscheins oder Nummer der Fahrerkarte sowie meiner Unterschrift zu  versehen. Sollten Tätigkeiten auf dem Ausdruck nicht aufscheinen, vermerke ich diese auf  dem Ausdruck","correct":true},{"text":"Ich muss sämtliche Daten aus dem Kontrollgerät auslesen","correct":false},{"text":"Ich vermerke das Fahrtende in einer Notiz auf meinem Mobiltelefon","correct":false},{"text":"Ich fotografiere den im Display angezeigten Kilometerstand","correct":false}]},{"id":"701","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Ihre Fahrerkarte ist defekt geworden oder verloren gegangen. Innerhalb welcher Frist  müssen Sie eine Ersatzkarte beantragen?","answers":[{"text":"Spätestens drei Tage nach dem Defekt oder Verlust der Fahrerkarte","correct":false},{"text":"Spätestens sieben Tage nach dem Defekt oder Verlust der Fahrerkarte","correct":true},{"text":"Spätestens 14 Tage nach dem Defekt oder Verlust der Fahrerkarte","correct":false},{"text":"Spätestens bei der Rückkunft zum Betriebsstandort","correct":false}]},{"id":"702","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Tätigkeiten fallen unter den Begriff \"Bereitschaftszeit\"?","answers":[{"text":"Wenn ich das Fahrzeug auf einer Fähre oder einem Zug begleite. Dabei darf ich den  Arbeitsplatz verlassen. Diese Zeiten und ihre voraussichtliche Dauer müssen mir vorab  bekannt sein","correct":true},{"text":"Nur solche, bei denen ich das Fahrzeug belade","correct":false},{"text":"Wenn ich am Fahrzeug einen Radwechsel vornehme","correct":false},{"text":"Nur solche, bei denen ich das Fahrzeug entlade","correct":false}]},{"id":"703","ziffer":"2a","klasse":"C1, C1E, C, CE / D1, D1E, D, DE","question":"Welche Tätigkeiten fallen unter den Begriff \"Bereitschaftszeit\"?","answers":[{"text":"Wenn ich das Fahrzeug wegen eines Fahrverbotes abstellen muss. Dabei darf ich den  Arbeitsplatz verlassen. Diese Zeiten und ihre voraussichtliche Dauer müssen mir vorab  bekannt sein","correct":true},{"text":"Nur solche, bei denen ich das Fahrzeug belade","correct":false},{"text":"Wenn ich am Fahrzeug einen Radwechsel vornehme","correct":false},{"text":"Nur solche, bei denen ich das Fahrzeug entlade","correct":false}]},{"id":"704","ziffer":"2c","klasse":"D1, D1E, D, DE","question":"Welche Standortdaten zeichnet das Kontrollgerät Smart Tacho 2 (GEN 2 V 2)  automatisch  auf?","answers":[{"text":"Die Geodaten zu Beginn und am Ende der täglichen Arbeitszeit bzw. nach jeweils drei  Stunden Lenkzeit, beim erstmaligen Einsteigen der Fahrgäste am Beginn und das  letztmalige Aussteigen am Ende einer Rundfahrt, bei jeder Überschreitung einer Grenze zu  einem Mitgliedsstaat der EU","correct":true},{"text":"Den Standort nach jeweils viereinhalb Stunden Lenkzeit","correct":false},{"text":"Den vollständigen Fahrtverlauf","correct":false},{"text":"Den Standort einer Lenkpause","correct":false}]}]
+;
+
+// Ziffer metadata
+const ZIFFER_META = {
+  '1a': 'Motor & Drehzahl',
+  '1b': 'Bremsanlagen',
+  '1c': 'Kraftstoff & Schaltung',
+  '1d': 'Sicherheitsabstand',
+  '1e': 'Tote Winkel (LKW)',
+  '1f': 'Ladungssicherung (LKW)',
+  '1g': 'Omnibus-Betrieb',
+  '1h': 'Ladung im Omnibus',
+  '2a': 'Kontrollgerät & Lenkzeiten',
+  '2b': 'CMR & GO-Box (LKW)',
+  '2c': 'GO-Box & Omnibus',
+  '3a': 'Verkehrsrecht',
+  '3b': 'Grenzverkehr',
+  '3c': 'Gesundheit & Ergonomie',
+  '3d': 'Leistungsfähigkeit',
+  '3e': 'Notfall',
+  '3f': 'Berufsethik',
+  '3g': 'Qualifikation (LKW)',
+  '3h': 'Qualifikation (Bus)',
+};
+
+const LKW_ZIFFERS = ['1a','1b','1c','1d','1e','1f','2a','2b','3a','3b','3c','3d','3e','3f','3g'];
+const BUS_ZIFFERS = ['1a','1b','1c','1d','1g','1h','2a','2c','3a','3b','3c','3d','3e','3f','3h'];
+
+let selectedZiffers = new Set(Object.keys(ZIFFER_META));
+let questionCount = 40;
+let currentMode = 'quiz';
+let quizQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let answered = [];
+let sessionHistory = {total: 0, correct: 0};
+
+// Build ziffer buttons
+function buildZifferGrid() {
+  const grid = document.getElementById('zifferGrid');
+  Object.keys(ZIFFER_META).forEach(z => {
+    const count = QUESTIONS.filter(q => q.ziffer === z).length;
+    const btn = document.createElement('button');
+    btn.className = 'ziffer-btn selected';
+    btn.id = 'z_' + z;
+    btn.innerHTML = \`<span>\${z}</span><br><small style="font-size:10px;font-weight:400">\${ZIFFER_META[z]}</small><br><small style="font-size:10px;opacity:.6">\${count}F</small>\`;
+    btn.onclick = () => toggleZiffer(z);
+    grid.appendChild(btn);
+  });
+  updateSelInfo();
+}
+
+function toggleZiffer(z) {
+  if (selectedZiffers.has(z)) selectedZiffers.delete(z);
+  else selectedZiffers.add(z);
+  document.getElementById('z_' + z).className = 'ziffer-btn' + (selectedZiffers.has(z) ? ' selected' : '');
+  updateSelInfo();
+}
+function selectAllZiffers() {
+  Object.keys(ZIFFER_META).forEach(z => { selectedZiffers.add(z); document.getElementById('z_' + z).className = 'ziffer-btn selected'; });
+  updateSelInfo();
+}
+function clearAllZiffers() {
+  selectedZiffers.clear();
+  Object.keys(ZIFFER_META).forEach(z => { document.getElementById('z_' + z).className = 'ziffer-btn'; });
+  updateSelInfo();
+}
+function selectLKW() {
+  selectedZiffers = new Set(LKW_ZIFFERS);
+  Object.keys(ZIFFER_META).forEach(z => { document.getElementById('z_' + z).className = 'ziffer-btn' + (selectedZiffers.has(z) ? ' selected' : ''); });
+  updateSelInfo();
+}
+function selectBus() {
+  selectedZiffers = new Set(BUS_ZIFFERS);
+  Object.keys(ZIFFER_META).forEach(z => { document.getElementById('z_' + z).className = 'ziffer-btn' + (selectedZiffers.has(z) ? ' selected' : ''); });
+  updateSelInfo();
+}
+function updateSelInfo() {
+  const avail = QUESTIONS.filter(q => selectedZiffers.has(q.ziffer)).length;
+  const actual = questionCount === 0 ? avail : Math.min(questionCount, avail);
+  document.getElementById('selInfo').innerHTML = \`<span>\${avail}</span> verfügbare Fragen → <span>\${actual}</span> werden gespielt\`;
+  document.getElementById('startBtn').disabled = avail === 0;
+}
+function setCount(n) {
+  questionCount = n;
+  ['10','20','40','All'].forEach(v => {
+    const el = document.getElementById('cnt' + v);
+    if (el) el.className = 'count-btn' + ((n === parseInt(v) || (n === 0 && v === 'All')) ? ' selected' : '');
+  });
+  updateSelInfo();
+}
+function selectMode(m) {
+  currentMode = m;
+  ['quiz','study','random'].forEach(x => {
+    document.getElementById('mode' + x.charAt(0).toUpperCase() + x.slice(1)).className = 'mode-card' + (x === m ? ' selected' : '');
+  });
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  let pool = QUESTIONS.filter(q => selectedZiffers.has(q.ziffer));
+  if (currentMode === 'random') pool = shuffle(pool);
+  if (questionCount > 0) pool = pool.slice(0, questionCount);
+  quizQuestions = pool;
+  currentIndex = 0;
+  score = 0;
+  answered = new Array(pool.length).fill(null);
+  showScreen('screenQuiz');
+  renderQuestion();
+  document.getElementById('headerStats').style.display = 'flex';
+}
+
+function renderQuestion() {
+  const q = quizQuestions[currentIndex];
+  const total = quizQuestions.length;
+
+  document.getElementById('qCurrent').textContent = currentIndex + 1;
+  document.getElementById('qTotal').textContent = total;
+  document.getElementById('progressBar').style.width = ((currentIndex + 1) / total * 100) + '%';
+  document.getElementById('scoreNum').textContent = score;
+
+  // Meta
+  const meta = document.getElementById('qMeta');
+  meta.innerHTML = \`<span class="q-num">Frage \${q.id}</span><span class="q-tag">\${q.ziffer} · \${ZIFFER_META[q.ziffer] || ''}</span>\`;
+
+  document.getElementById('qText').textContent = q.question;
+
+  // Answers
+  const cont = document.getElementById('answersContainer');
+  cont.innerHTML = '';
+  const letters = ['A','B','C','D','E','F'];
+  const shuffledAnswers = currentMode === 'random' ? shuffle(q.answers) : q.answers;
+
+  shuffledAnswers.forEach((a, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.innerHTML = \`<span class="answer-letter">\${letters[i]}</span><span>\${a.text}</span>\`;
+    btn.dataset.correct = a.correct;
+    btn.dataset.idx = i;
+
+    if (answered[currentIndex]) {
+      btn.disabled = true;
+      if (a.correct) btn.className += currentMode === 'study' ? ' reveal' : ' correct';
+      else if (answered[currentIndex].selectedText === a.text) btn.className += ' wrong';
+    } else {
+      if (currentMode === 'study') {
+        btn.onclick = () => revealAnswer();
+        btn.style.cursor = 'pointer';
+      } else {
+        btn.onclick = () => selectAnswer(btn, a, q, shuffledAnswers);
+      }
+    }
+    cont.appendChild(btn);
+  });
+
+  // Feedback
+  const fb = document.getElementById('feedbackBox');
+  if (answered[currentIndex]) {
+    fb.className = 'feedback-box show ' + (answered[currentIndex].correct ? 'correct-fb' : 'wrong-fb');
+    document.getElementById('feedbackIcon').textContent = answered[currentIndex].correct ? '✅' : '❌';
+    document.getElementById('feedbackMsg').textContent = answered[currentIndex].correct ? 'Richtig! Weiter so!' : 'Falsch! Die richtige Antwort ist markiert.';
+  } else {
+    fb.className = 'feedback-box';
+  }
+
+  // Nav
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  const nextBtn = document.getElementById('nextBtn');
+  if (currentIndex === total - 1) {
+    nextBtn.textContent = 'Ergebnis →';
+    nextBtn.disabled = !answered[currentIndex] && currentMode !== 'study';
+  } else {
+    nextBtn.textContent = 'Weiter →';
+    nextBtn.disabled = !answered[currentIndex] && currentMode !== 'study';
+  }
+
+  // Study mode: always enable next
+  if (currentMode === 'study') nextBtn.disabled = false;
+
+  // Scroll
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function selectAnswer(btn, answer, q, shuffledAnswers) {
+  if (answered[currentIndex]) return;
+
+  const isCorrect = answer.correct;
+  const allBtns = document.querySelectorAll('.answer-btn');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    const idx = parseInt(b.dataset.idx);
+    const a = shuffledAnswers[idx];
+    if (a && a.correct) b.className = 'answer-btn correct';
+    else if (b === btn && !isCorrect) b.className = 'answer-btn wrong';
+  });
+
+  answered[currentIndex] = { correct: isCorrect, selectedText: answer.text };
+  if (isCorrect) score++;
+
+  // Update session
+  sessionHistory.total++;
+  if (isCorrect) sessionHistory.correct++;
+  updateHeader();
+
+  // Feedback
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
+  document.getElementById('feedbackIcon').textContent = isCorrect ? '✅' : '❌';
+  document.getElementById('feedbackMsg').textContent = isCorrect ? 'Richtig! Weiter so!' : 'Falsch! Die richtige Antwort ist markiert.';
+  document.getElementById('scoreNum').textContent = score;
+
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.disabled = false;
+  if (currentIndex === quizQuestions.length - 1) nextBtn.textContent = 'Ergebnis →';
+}
+
+function revealAnswer() {
+  if (answered[currentIndex]) return;
+  const allBtns = document.querySelectorAll('.answer-btn');
+  allBtns.forEach(b => {
+    b.disabled = true;
+    const idx = parseInt(b.dataset.idx);
+    const answers = currentMode === 'random' ? shuffle(quizQuestions[currentIndex].answers) : quizQuestions[currentIndex].answers;
+    if (answers[idx] && answers[idx].correct) b.className = 'answer-btn reveal';
+  });
+  answered[currentIndex] = { correct: null, selectedText: null };
+}
+
+function nextQuestion() {
+  if (currentIndex >= quizQuestions.length - 1) {
+    showResults();
+  } else {
+    currentIndex++;
+    renderQuestion();
+  }
+}
+function prevQuestion() {
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+}
+
+function showResults() {
+  const total = quizQuestions.length;
+  const pct = Math.round(score / total * 100);
+  document.getElementById('resPct').textContent = pct + '%';
+  document.getElementById('resCorrect').textContent = score;
+  document.getElementById('resWrong').textContent = total - score;
+  document.getElementById('resTotal').textContent = total;
+
+  let title, sub;
+  if (pct >= 90) { title = '🏆 Ausgezeichnet!'; sub = 'Hervorragende Leistung! Sie sind bestens vorbereitet.'; }
+  else if (pct >= 75) { title = '✅ Sehr gut!'; sub = 'Gute Leistung! Noch ein bisschen üben.'; }
+  else if (pct >= 60) { title = '📚 Gut gemacht'; sub = 'Befriedigend. Wiederholen Sie die Fehler.'; }
+  else { title = '💪 Weiter üben!'; sub = 'Nochmals lernen und wiederholen!'; }
+
+  document.getElementById('resTitle').textContent = title;
+  document.getElementById('resSub').textContent = sub;
+  showScreen('screenResults');
+}
+
+function showReview() {
+  const list = document.getElementById('reviewList');
+  list.innerHTML = '';
+  quizQuestions.forEach((q, i) => {
+    const ans = answered[i];
+    const isOk = ans && ans.correct;
+    const item = document.createElement('div');
+    item.className = 'review-item ' + (isOk ? 'ok' : 'fail');
+    let html = \`<div class="review-q">\${i+1}. \${q.question}</div><div class="review-answers">\`;
+    q.answers.forEach(a => {
+      let cls = 'plain';
+      if (a.correct) cls = 'correct';
+      else if (ans && ans.selectedText === a.text) cls = 'wrong';
+      const icon = cls === 'correct' ? '✓ ' : cls === 'wrong' ? '✗ ' : '· ';
+      html += \`<div class="review-ans \${cls}">\${icon}\${a.text}</div>\`;
+    });
+    html += '</div>';
+    item.innerHTML = html;
+    list.appendChild(item);
+  });
+  showScreen('screenReview');
+}
+
+function restartQuiz() {
+  currentIndex = 0;
+  score = 0;
+  answered = new Array(quizQuestions.length).fill(null);
+  quizQuestions = shuffle(quizQuestions);
+  showScreen('screenQuiz');
+  renderQuestion();
+}
+
+function goHome() {
+  showScreen('screenHome');
+  document.getElementById('headerStats').style.display = 'none';
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function updateHeader() {
+  document.getElementById('hTotal').textContent = sessionHistory.total;
+  document.getElementById('hCorrect').textContent = sessionHistory.correct;
+  const pct = sessionHistory.total > 0 ? Math.round(sessionHistory.correct / sessionHistory.total * 100) : 0;
+  document.getElementById('hPct').textContent = pct + '%';
+}
+
+// Scroll to top button
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  btn.classList.toggle('visible', window.scrollY > 300);
+});
+
+// Init
+buildZifferGrid();
+</script>
+</body>
+</html>
